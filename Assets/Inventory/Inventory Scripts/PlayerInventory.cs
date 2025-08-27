@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -23,6 +24,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    [Header("Inventory")]
     public Item[] slots; 
     public InventorySlotUI[] slotUI;
     public Transform dropPoint;
@@ -33,6 +35,11 @@ public class PlayerInventory : MonoBehaviour
     
     [SerializeField] private PlayerInventory playerInventory;
 
+    // runtime
+    public List<Collectible> nearbyCollectibles = new List<Collectible>();
+    private bool inventoryOpen = false;
+    private Transform pickupTriggerObject;
+    
     void Start()
     {
         slots = new Item[4];
@@ -137,5 +144,38 @@ public class PlayerInventory : MonoBehaviour
             // round to nearest one (0.5 rounds up)
             return Mathf.RoundToInt(avg + 0.1f);
         }
+    }
+    
+    internal void OnCollectibleEnter(Collectible c)
+    {
+        if (c == null) return;
+        if (!nearbyCollectibles.Contains(c))
+            nearbyCollectibles.Add(c);
+    }
+
+    internal void OnCollectibleExit(Collectible c)
+    {
+        if (c == null) return;
+        nearbyCollectibles.Remove(c);
+    }
+    
+    public bool PickupNearbyAt(int index)
+    {
+        if (index < 0 || index >= nearbyCollectibles.Count) return false;
+        var col = nearbyCollectibles[index];
+        if (col == null)
+        {
+            nearbyCollectibles.RemoveAt(index);
+            return false;
+        }
+
+        bool added = AddItem(col.weight);
+        if (added)
+        {
+            nearbyCollectibles.RemoveAt(index);
+            Destroy(col.gameObject);
+        }
+
+        return added;
     }
 }
