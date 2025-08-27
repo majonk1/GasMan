@@ -19,6 +19,7 @@ public class BasicPlayerControls : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
+
     void Awake()
     {
         cc = GetComponent<CharacterController>();
@@ -68,6 +69,10 @@ public class BasicPlayerControls : MonoBehaviour
         cc.Move(velocity * Time.deltaTime);
     }
 
+    public void SetWeight(float w)
+    {
+        currentWeight = w;
+    }
 
     public void AddWeight(float w)
     {

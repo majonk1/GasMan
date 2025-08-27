@@ -270,7 +270,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  currentWeight: 20
+  currentWeight: 0
 --- !u!65 &118369676
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -388,6 +388,7 @@ MonoBehaviour:
   dropPoint: {fileID: 1037495628}
   circlePrefab: {fileID: 8444989110655091402, guid: 799d665e5cda94445983d7df453016a7, type: 3}
   inventoryUI: {fileID: 1962623561}
+  playerInventory: {fileID: 0}
 --- !u!1 &118865196
 GameObject:
   m_ObjectHideFlags: 0

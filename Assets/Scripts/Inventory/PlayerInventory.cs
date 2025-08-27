@@ -30,6 +30,8 @@ public class PlayerInventory : MonoBehaviour
     [Header("Settings")]
     public GameObject circlePrefab; 
     public GameObject inventoryUI;
+    
+    [SerializeField] private PlayerInventory playerInventory;
 
     void Start()
     {
@@ -57,7 +59,7 @@ public class PlayerInventory : MonoBehaviour
                 RefreshUI();
                 
                 BasicPlayerControls controls = GetComponent<BasicPlayerControls>();
-                controls.AddWeight(weight);
+                controls.SetWeight(CurrentWeight);
                 
                 return true;
             }
@@ -107,11 +109,33 @@ public class PlayerInventory : MonoBehaviour
     {
         get
         {
+            return AverageWeight;
+        }
+    }
+    
+
+    public float AverageWeight
+    {
+        get
+        {
             float total = 0f;
-            for (int i = 0; i < slots.Length; i++)
-                if (slots[i].IsEmpty)
-                    total += slots[i].weight;
-            return total;
+            int count = 0;
+
+            foreach (var slot in slots)
+            {
+                if (!slot.IsEmpty)
+                {
+                    total += slot.weight;
+                    count++;
+                }
+            }
+
+            if (count == 0) return 0; 
+
+            float avg = total / count;
+
+            // round to nearest one (0.5 rounds up)
+            return Mathf.RoundToInt(avg + 0.1f);
         }
     }
 }
