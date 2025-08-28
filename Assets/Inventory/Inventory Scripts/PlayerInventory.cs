@@ -38,6 +38,8 @@ public class PlayerInventory : MonoBehaviour
     private bool inventoryOpen = false;
     private Transform pickupTriggerObject;
     
+    [SerializeField] private InventoryNearbyUI nearbyUI;
+    
     void Start()
     {
         slots = new Item[4];
@@ -148,13 +150,18 @@ public class PlayerInventory : MonoBehaviour
     {
         if (c == null) return;
         if (!nearbyCollectibles.Contains(c))
+        {
             nearbyCollectibles.Add(c);
+            nearbyUI.RefreshNearbyUI();
+        }
     }
 
     internal void OnCollectibleExit(Collectible c)
     {
         if (c == null) return;
         nearbyCollectibles.Remove(c);
+        nearbyUI.RefreshNearbyUI();
+        
     }
     
     public bool PickupNearbyAt(int index)
@@ -164,12 +171,20 @@ public class PlayerInventory : MonoBehaviour
         if (col == null)
         {
             nearbyCollectibles.RemoveAt(index);
+            
+            if (nearbyUI != null && nearbyUI.isActiveAndEnabled)
+                nearbyUI.RefreshNearbyUI();
+            
             return false;
         }
 
         bool added = AddItem(col.weight);
         if (added)
         {
+            //Need to refresh 
+            if (nearbyUI != null && nearbyUI.isActiveAndEnabled)
+                nearbyUI.RefreshNearbyUI();
+            
             nearbyCollectibles.RemoveAt(index);
             Destroy(col.gameObject);
         }

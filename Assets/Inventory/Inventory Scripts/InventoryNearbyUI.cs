@@ -25,6 +25,7 @@ public class InventoryNearbyUI : MonoBehaviour
     {
         if (playerInventory == null)
             playerInventory = FindObjectOfType<PlayerInventory>();
+        
 
         RefreshNearbyUI();
     }
