@@ -33,8 +33,6 @@ public class PlayerInventory : MonoBehaviour
     public GameObject circlePrefab; 
     public GameObject inventoryUI;
     
-    [SerializeField] private PlayerInventory playerInventory;
-
     // runtime
     public List<Collectible> nearbyCollectibles = new List<Collectible>();
     private bool inventoryOpen = false;

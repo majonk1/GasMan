@@ -6,7 +6,6 @@ public class FloorController : MonoBehaviour
     public PlayerInventory playerInventory; 
     public float minWeight = -50f; 
     public float maxWeight = 50f; 
-
     
     [Header("Movement")]
     //how weight it goes based of weight.

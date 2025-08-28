@@ -16,6 +16,7 @@ public class InventoryNearbyUI : MonoBehaviour
 
     public GameObject nearbyItemPrefab;
 
+    [SerializeField] private Transform topOfProximityMenu;
 
     // Keep track of instantiated entries so we can clear them
     private List<GameObject> entries = new List<GameObject>();
@@ -41,30 +42,58 @@ public class InventoryNearbyUI : MonoBehaviour
             return;
 
         var list = playerInventory.nearbyCollectibles;
+        
+        //independent of i
+        int placedIndex = 0;
         for (int i = 0; i < list.Count; i++)
         {
             var collectible = list[i];
             if (collectible == null) continue;
 
-            var go = Instantiate(nearbyItemPrefab, spawnItemsTo);
+            GameObject go = CreateEntry(collectible, i);
+            PositionEntry(go, placedIndex);
+            SetupEntryUI(go, collectible, i);
+
             entries.Add(go);
+            placedIndex++;
+        }
+    }
 
-            var weightText = go.GetComponentInChildren<TextMeshProUGUI>();
-            var button = go.GetComponentInChildren<Button>();
+    private GameObject CreateEntry(Collectible collectible, int index)
+    {
+        return Instantiate(nearbyItemPrefab, spawnItemsTo);
+    }
 
-            if (weightText != null)
-                weightText.text = $"Weight: {collectible.weight:F1}";
+    private void PositionEntry(GameObject go, int placedIndex)
+    {
+        RectTransform rt = go.GetComponent<RectTransform>();
+        if (rt != null && topOfProximityMenu != null)
+        {
+            rt.pivot = new Vector2(0.5f, 1f); 
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 1f);
+            rt.SetParent(topOfProximityMenu, false);
 
-            if (button != null)
+            //adjust prefab height
+            float spacing = 40f; 
+            rt.anchoredPosition = new Vector2(0, -placedIndex * spacing);
+        }
+    }
+
+    private void SetupEntryUI(GameObject go, Collectible collectible, int index)
+    {
+        var weightText = go.GetComponentInChildren<TextMeshProUGUI>();
+        if (weightText != null)
+            weightText.text = $"Weight: {collectible.weight:F1}";
+
+        var button = go.GetComponentInChildren<Button>();
+        if (button != null)
+        {
+            int capturedIndex = index;
+            button.onClick.AddListener(() =>
             {
-                int capturedIndex = i;
-                button.onClick.AddListener(() =>
-                {
-                    bool added = playerInventory.PickupNearbyAt(capturedIndex);
-                    // refresh UI after attempting pickup
-                    RefreshNearbyUI();
-                });
-            }
+                bool added = playerInventory.PickupNearbyAt(capturedIndex);
+                RefreshNearbyUI();
+            });
         }
     }
 

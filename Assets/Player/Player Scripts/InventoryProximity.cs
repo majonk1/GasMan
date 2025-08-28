@@ -8,7 +8,7 @@ public class InventoryProximity : MonoBehaviour
     
     void Awake()
     {
-        playerInventory = GetComponent<PlayerInventory>();
+        playerInventory = GetComponentInParent<PlayerInventory>();
     }
 
     void OnTriggerEnter(Collider other)
