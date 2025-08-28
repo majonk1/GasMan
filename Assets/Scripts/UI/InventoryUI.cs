@@ -13,6 +13,7 @@ public class InventorySlotUI : MonoBehaviour
 
     private void Start()
     {
+        
     }
 
     public void Setup(int index, PlayerInventory inv)

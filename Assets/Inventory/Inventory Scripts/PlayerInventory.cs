@@ -52,8 +52,25 @@ public class PlayerInventory : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && inventoryUI != null)
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            bool isCurrentlyOpen = inventoryUI.activeSelf;
+            bool shouldOpen = !isCurrentlyOpen;
+
+            inventoryUI.SetActive(shouldOpen);
+
+            if (shouldOpen)
+            {
+                //freeze
+                Time.timeScale = 0f; 
+            }
+            else
+            {
+                //unfreeze
+                Time.timeScale = 1f;
+            }
+        }
+
     }
 
     public bool AddItem(float weight)
@@ -128,8 +145,10 @@ public class PlayerInventory : MonoBehaviour
             float total = 0f;
             int count = 0;
 
+            print("length: " + slots.Length);
             foreach (var slot in slots)
             {
+                
                 if (!slot.IsEmpty)
                 {
                     total += slot.weight;
@@ -143,7 +162,7 @@ public class PlayerInventory : MonoBehaviour
 
             // round to nearest one (0.5 rounds up)
             return Mathf.RoundToInt(avg + 0.1f);
-        }
+        } 
     }
     
     internal void OnCollectibleEnter(Collectible c)
