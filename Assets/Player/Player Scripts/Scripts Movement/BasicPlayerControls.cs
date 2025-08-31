@@ -19,8 +19,6 @@ public class BasicPlayerControls : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
-    public Animator animator;
-
 
     void Awake()
     {
@@ -31,8 +29,6 @@ public class BasicPlayerControls : MonoBehaviour
             groundCheck.SetParent(transform);
             groundCheck.localPosition = new Vector3(0, -cc.height / 2f, 0);
         }
-
-        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -55,10 +51,6 @@ public class BasicPlayerControls : MonoBehaviour
         // Only allow A and D for horizontal movement
         bool leftPressed = Input.GetKey(KeyCode.A);
         bool rightPressed = Input.GetKey(KeyCode.D);
-        
-        // tells the animator which direction animation to play
-        animator.SetBool("leftPressed", leftPressed);
-        animator.SetBool("rightPressed", rightPressed);
 
         float h = 0f;
         if (leftPressed && !rightPressed) h = -1f;
