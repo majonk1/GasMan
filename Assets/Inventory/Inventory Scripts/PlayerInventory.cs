@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,7 +40,12 @@ public class PlayerInventory : MonoBehaviour
     private Transform pickupTriggerObject;
     
     [SerializeField] private InventoryNearbyUI nearbyUI;
-    
+    private BasicPlayerControls _basicPlayerControls;
+    private void Awake()
+    {
+        _basicPlayerControls = GetComponent<BasicPlayerControls>();
+    }
+
     void Start()
     {
         slots = new Item[4];
@@ -82,8 +88,7 @@ public class PlayerInventory : MonoBehaviour
                 slots[i] = new Item { weight = weight };
                 RefreshUI();
                 
-                BasicPlayerControls controls = GetComponent<BasicPlayerControls>();
-                controls.SetWeight(CurrentWeight);
+                _basicPlayerControls.SetWeight(CurrentWeight);
                 
                 return true;
             }
@@ -109,8 +114,8 @@ public class PlayerInventory : MonoBehaviour
         // mark empty
         slots[index].weight = 0;
     
-        var controls = GetComponent<BasicPlayerControls>();
-        controls.RemoveWeight(droppedWeight);
+        _basicPlayerControls.SetWeight(CurrentWeight);
+        //basicPlayerControls.RemoveWeight(droppedWeight);
         
         RefreshUI();
     }
