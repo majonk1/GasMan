@@ -63,6 +63,16 @@ public class BasicPlayerControls : MonoBehaviour
         if (leftPressed && !rightPressed) h = -1f;
         else if (rightPressed && !leftPressed) h = 1f;
 
+        if (h != 0)
+        {
+            // Look in the direction of movement
+             Vector3 localScale = transform.localScale;
+             localScale.x = h > 0 ? 1 : -1;
+             transform.localScale = localScale;
+        }
+        
+        
+        
         Vector3 move = transform.right * h;
         cc.Move(move * speed * Time.deltaTime);
 
