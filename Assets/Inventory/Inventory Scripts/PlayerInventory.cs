@@ -150,7 +150,6 @@ public class PlayerInventory : MonoBehaviour
             float total = 0f;
             int count = 0;
 
-            print("length: " + slots.Length);
             foreach (var slot in slots)
             {
                 
