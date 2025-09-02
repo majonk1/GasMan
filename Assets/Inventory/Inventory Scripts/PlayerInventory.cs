@@ -5,27 +5,6 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [System.Serializable]
-    public struct Item
-    {
-        public float weight;
-        
-        public bool IsEmpty
-        {
-            get
-            {
-                if (weight == 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-    }
-
     [Header("Inventory")]
     public Item[] slots; 
     public InventoryUI[] slotUI;
