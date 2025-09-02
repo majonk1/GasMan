@@ -27,7 +27,7 @@ public class InventoryUI : MonoBehaviour
             //InventorySlotPrefab.SetActive(occupied);
 
         if (occupied)
-            weightText.text = $"Weight: {weight:F0}";
+            weightText.text = $"Float Value: {weight:F0}";
     }
     
 

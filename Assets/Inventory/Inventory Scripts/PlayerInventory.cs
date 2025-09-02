@@ -57,6 +57,8 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < slotUI.Length; i++)
             slotUI[i].Setup(i, this);
 
+        AddItem(1f);
+        
         RefreshUI();
     }
 
