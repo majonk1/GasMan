@@ -71,15 +71,8 @@ public class BasicPlayerControls : MonoBehaviour
              transform.localScale = localScale;
         }
         
-        
-        
         Vector3 move = transform.right * h;
         cc.Move(move * speed * Time.deltaTime);
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
 
         // Gravity
         velocity.y += gravity * Time.deltaTime;
@@ -89,15 +82,5 @@ public class BasicPlayerControls : MonoBehaviour
     public void SetWeight(float w)
     {
         currentWeight = w;
-    }
-
-    public void AddWeight(float w)
-    {
-        currentWeight += w;
-    }
-    
-    public void RemoveWeight(float w)
-    {
-        currentWeight -= w;
     }
 }
