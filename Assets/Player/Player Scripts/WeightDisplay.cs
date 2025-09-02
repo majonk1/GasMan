@@ -10,6 +10,6 @@ public class WeightDisplay : MonoBehaviour
     void Update()
     {
         // :)
-        weightText.text = $"Your Weight: {player.currentWeight:F1}";
+        weightText.text = $"Your Weight: {player.currentWeight:F0}";
     }
 }

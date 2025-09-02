@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
@@ -27,7 +28,7 @@ public class PlayerInventory : MonoBehaviour
 
     [Header("Inventory")]
     public Item[] slots; 
-    public InventorySlotUI[] slotUI;
+    public InventoryUI[] slotUI;
     public Transform dropPoint;
 
     [Header("Settings")]
@@ -41,6 +42,9 @@ public class PlayerInventory : MonoBehaviour
     
     [SerializeField] private InventoryNearbyUI nearbyUI;
     private BasicPlayerControls _basicPlayerControls;
+    
+    [SerializeField] private TextMeshProUGUI slotsCountText;
+    
     private void Awake()
     {
         _basicPlayerControls = GetComponent<BasicPlayerControls>();
@@ -130,6 +134,8 @@ public class PlayerInventory : MonoBehaviour
             else
                 slotUI[i].UpdateSlot(0, false);
         }
+
+        UpdateSlotsCount();
     }
    
     
@@ -185,6 +191,26 @@ public class PlayerInventory : MonoBehaviour
         nearbyCollectibles.Remove(c);
         nearbyUI.RefreshNearbyUI();
         
+    }
+    
+    public void UpdateSlotsCount()
+    {
+        if (slots == null || slots.Length == 0)
+        {
+            slotsCountText.text = $"Total: 0/0";
+            return;
+        }
+
+        int occupied = 0;
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (!slots[i].IsEmpty)
+            {
+                occupied++;
+            }
+        }
+
+        slotsCountText.text = $"Total: {occupied}/{slots.Length}";
     }
     
     public bool PickupNearbyAt(int index)
