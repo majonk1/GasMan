@@ -1,104 +1,69 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorController : MonoBehaviour
 {
-    [Header("Weight -> Height mapping")]
-    public PlayerInventory playerInventory; 
-    public float minWeight = -50f; 
-    public float maxWeight = 50f; 
-    
-    [Header("Movement")]
-    //how weight it goes based of weight.
-    public float minHeight = -2f;  
-    public float maxHeight = 2f; 
-    public float smoothTime = 0.25f;
-    public bool useLocalPosition = true; 
+    public PlayerInventory playerInventory;
 
-    [Header("Debug")]
-    public bool debugLogs = false;
+    [Tooltip("Ordered list of positions. Weight 1 => index 0, Weight 2 => index 1, and so on.")]
+    public List<Transform> positions = new List<Transform>();
 
-    Vector3 velocity = Vector3.zero;
-    Vector3 initialLocalPosition;
-    Vector3 initialWorldPosition;
+    public float moveSpeed = 2f;
 
-    void Start()
+    private int currentTargetIndex = -1;
+    private Transform currentTargetTransform;
+
+    void Awake()
     {
-        initialLocalPosition = transform.localPosition;
-        initialWorldPosition = transform.position;
+        if (playerInventory == null)
+            playerInventory = FindObjectOfType<PlayerInventory>();
     }
 
     void Update()
     {
+        if (positions == null || positions.Count == 0)
+            return;
+
+        // this should not be here, too bad!
+        UpdateTargetFromWeight(false);
+
+        MoveToTarget();
+    }
+
+    private void UpdateTargetFromWeight(bool force)
+    {
         if (playerInventory == null) return;
 
-        float currentWeight = GetTotalWeight();
+        int weightRounded = Mathf.RoundToInt(playerInventory.CurrentWeight);
+        int desiredIndex = MapWeightToIndex(weightRounded);
 
-        // Map weight to 0..1
-        float t = Mathf.InverseLerp(minWeight, maxWeight, currentWeight);
-        t = Mathf.Clamp01(t);
+        if (!force && desiredIndex == currentTargetIndex)
+            return;
 
-        // Map to height
-        float targetY = Mathf.Lerp(minHeight, maxHeight, t);
-
-        if (useLocalPosition)
-        {
-            Vector3 targetLocal = new Vector3(initialLocalPosition.x, initialLocalPosition.y + targetY, initialLocalPosition.z);
-            transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetLocal, ref velocity, smoothTime);
-        }
-        else
-        {
-            Vector3 targetWorld = new Vector3(initialWorldPosition.x, initialWorldPosition.y + targetY, initialWorldPosition.z);
-            transform.position = Vector3.SmoothDamp(transform.position, targetWorld, ref velocity, smoothTime);
-        }
-
-        if (debugLogs)
-            Debug.Log($"[FloorController] Weight={currentWeight:F2}, t={t:F2}, targetY={targetY:F2}");
+        currentTargetIndex = desiredIndex;
+        currentTargetTransform = (currentTargetIndex >= 0 && currentTargetIndex < positions.Count)
+            ? positions[currentTargetIndex]
+            : null;
     }
 
-    /// <summary>
-    /// Prefer using the inventory's CurrentWeight property, but fall back to summing slots
-    /// if CurrentWeight is zero but slot data indicates otherwise.
-    /// </summary>
-    float GetTotalWeight()
+    private int MapWeightToIndex(int weight)
     {
-        if (playerInventory == null) return 0f;
+        if (positions == null || positions.Count == 0)
+            return -1;
 
-        float w = 0f;
-
-        // Try property first
-        try
-        {
-            w = playerInventory.CurrentWeight;
-        }
-        catch
-        {
-            w = 0f;
-        }
-
-        // If the property is zero but slots exist and contain weight, sum them directly (fallback)
-        if (Mathf.Approximately(w, 0f) && playerInventory.slots != null && playerInventory.slots.Length > 0)
-        {
-            float sum = 0f;
-            for (int i = 0; i < playerInventory.slots.Length; i++)
-            {
-                var s = playerInventory.slots[i];
-                // s.IsEmpty is available because Item is public in PlayerInventory
-                if (!s.IsEmpty)
-                    sum += s.weight;
-            }
-
-            if (sum > 0f)
-                w = sum;
-        }
-
-        return w;
+        int clampedWeight = Mathf.Max(1, weight); // weight 0 -> index 0 fallback
+        int idx = clampedWeight - 1;
+        idx = Mathf.Clamp(idx, 0, positions.Count - 1);
+        return idx;
     }
 
-    void OnValidate()
+    private void MoveToTarget()
     {
-        // keep ranges sane in inspector
-        if (maxWeight < minWeight) maxWeight = minWeight;
-        if (maxHeight < minHeight) maxHeight = minHeight;
-        if (smoothTime < 0.0001f) smoothTime = 0.0001f;
+        if (currentTargetTransform == null)
+            return;
+
+        Vector3 targetWorldPos = currentTargetTransform.position;
+
+        transform.position = Vector3.MoveTowards(transform.position, targetWorldPos, moveSpeed * Time.deltaTime);
     }
 }

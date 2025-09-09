@@ -19,6 +19,8 @@ public class BasicPlayerControls : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
+    private Animator animator;
+
 
     void Awake()
     {
@@ -29,6 +31,8 @@ public class BasicPlayerControls : MonoBehaviour
             groundCheck.SetParent(transform);
             groundCheck.localPosition = new Vector3(0, -cc.height / 2f, 0);
         }
+
+        animator = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -52,17 +56,23 @@ public class BasicPlayerControls : MonoBehaviour
         bool leftPressed = Input.GetKey(KeyCode.A);
         bool rightPressed = Input.GetKey(KeyCode.D);
 
+        animator.SetBool("leftPressed", leftPressed);
+        animator.SetBool("rightPressed", rightPressed);
+
         float h = 0f;
         if (leftPressed && !rightPressed) h = -1f;
         else if (rightPressed && !leftPressed) h = 1f;
 
+        if (h != 0)
+        {
+            // Look in the direction of movement
+             Vector3 localScale = transform.localScale;
+             localScale.x = h > 0 ? 1 : -1;
+             transform.localScale = localScale;
+        }
+        
         Vector3 move = transform.right * h;
         cc.Move(move * speed * Time.deltaTime);
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
 
         // Gravity
         velocity.y += gravity * Time.deltaTime;
@@ -72,15 +82,5 @@ public class BasicPlayerControls : MonoBehaviour
     public void SetWeight(float w)
     {
         currentWeight = w;
-    }
-
-    public void AddWeight(float w)
-    {
-        currentWeight += w;
-    }
-    
-    public void RemoveWeight(float w)
-    {
-        currentWeight -= w;
     }
 }

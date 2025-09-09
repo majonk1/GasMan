@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlotUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private GameObject InventorySlotPrefab;
     public TextMeshProUGUI weightText;    
@@ -11,10 +11,6 @@ public class InventorySlotUI : MonoBehaviour
     private int slotIndex; 
     private PlayerInventory _playerInventory;
 
-    private void Start()
-    {
-        
-    }
 
     public void Setup(int index, PlayerInventory inv)
     {
@@ -31,6 +27,8 @@ public class InventorySlotUI : MonoBehaviour
             //InventorySlotPrefab.SetActive(occupied);
 
         if (occupied)
-            weightText.text = $"Weight: {weight:F1}";
+            weightText.text = $"Float Value: {weight:F0}";
     }
+    
+
 }
