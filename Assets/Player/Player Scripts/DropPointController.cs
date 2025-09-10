@@ -35,20 +35,4 @@ public class DropPointController : MonoBehaviour
     {
         ActiveDropPoint = rightDropPoint ?? transform;
     }
-
-    public Vector3 GetPosition()
-    {
-        return ActiveDropPoint != null ? ActiveDropPoint.position : transform.position;
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        if (leftDropPoint) Gizmos.DrawWireSphere(leftDropPoint.position, 0.12f);
-        if (rightDropPoint) Gizmos.DrawWireSphere(rightDropPoint.position, 0.12f);
-
-        Gizmos.color = Color.green;
-        if (Application.isPlaying && ActiveDropPoint != null)
-            Gizmos.DrawSphere(ActiveDropPoint.position, 0.06f);
-    }
 }
