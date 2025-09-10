@@ -5,17 +5,10 @@ using UnityEngine.UI;
 
 public class WeightDisplay : MonoBehaviour
 {
-    public PlayerMovement player;
     public TextMeshProUGUI weightText;
 
-    private void Awake()
+    public void Refresh(float weight)
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-    }
-
-    void Update()
-    {
-        // :)
-        weightText.text = $"Your Weight: {player.currentWeight:F0}";
+        weightText.text = $"Your Weight: {weight:F0}";
     }
 }

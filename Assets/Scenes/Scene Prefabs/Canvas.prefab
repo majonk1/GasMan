@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 7865110759593518492}
   m_Layer: 5
   m_Name: weight
-  m_TagString: Untagged
+  m_TagString: WeightDisplay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

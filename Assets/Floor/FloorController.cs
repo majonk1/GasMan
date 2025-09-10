@@ -34,7 +34,7 @@ public class FloorController : MonoBehaviour
     {
         if (playerInventory == null) return;
 
-        int weightRounded = Mathf.RoundToInt(playerInventory.CurrentWeight);
+        int weightRounded = Mathf.RoundToInt(playerInventory.currentWeight);
         int desiredIndex = MapWeightToIndex(weightRounded);
 
         if (!force && desiredIndex == currentTargetIndex)

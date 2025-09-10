@@ -24,9 +24,18 @@ public class PlayerInventory : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI slotsCountText;
     
+    //There are two weight UI's, one top left, on in inventory, therefore need an array
+    [SerializeField] private WeightDisplay[] weightDisplays = new WeightDisplay[2];
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
+       
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("WeightDisplay");
+        
+        for (int i = 0; i < objs.Length; i++)
+        {
+            weightDisplays[i] = objs[i].GetComponent<WeightDisplay>();
+        }
     }
 
     void Start()
@@ -73,7 +82,8 @@ public class PlayerInventory : MonoBehaviour
                 slots[i] = new Item { weight = weight };
                 RefreshUI();
                 
-                _playerMovement.SetWeight(CurrentWeight);
+                RefreshWeightDisplay(currentWeight);
+                _playerMovement.SetWeight(currentWeight);
                 
                 return true;
             }
@@ -97,10 +107,12 @@ public class PlayerInventory : MonoBehaviour
         }
 
         // mark empty
+        //Use .IsEmpty? 
         slots[index].weight = 0;
     
-        _playerMovement.SetWeight(CurrentWeight);
-        //basicPlayerControls.RemoveWeight(droppedWeight);
+        RefreshWeightDisplay(currentWeight);
+        
+        _playerMovement.SetWeight(currentWeight);
         
         RefreshUI();
     }
@@ -118,10 +130,18 @@ public class PlayerInventory : MonoBehaviour
 
         UpdateSlotsCount();
     }
-   
-    
 
-    public float CurrentWeight
+    private void RefreshWeightDisplay(float currenWeight)
+    {
+        foreach (var display in weightDisplays)
+        {
+            if (display != null)
+                display.Refresh(currentWeight);
+        }
+
+    }
+
+    public float currentWeight
     {
         get
         {
