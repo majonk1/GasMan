@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
     {
         float speed = walkSpeed;
 
-        // Only allow A and D for horizontal movement
         bool leftPressed = Input.GetKey(KeyCode.A);
         bool rightPressed = Input.GetKey(KeyCode.D);
 
@@ -63,12 +62,12 @@ public class PlayerMovement : MonoBehaviour
         if (leftPressed && !rightPressed)
         {
             h = -1f;
-            AudioManager.Instance.PlayMovementClip();
+            //AudioManager.Instance.PlayMovementClip();
         }
         else if (rightPressed && !leftPressed)
         {
             h = 1f;
-            AudioManager.Instance.PlayMovementClip();
+            //AudioManager.Instance.PlayMovementClip();
             
         }
 
@@ -81,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         Vector3 move = transform.right * h;
-        cc.Move(move * speed * Time.deltaTime);
+        cc.Move(move * (speed * Time.deltaTime));
 
         // Gravity
         velocity.y += gravity * Time.deltaTime;

@@ -12,8 +12,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Zoomed out.unity
     guid: 448d5784f45507342818aa3cc8490007
   - enabled: 1
-    path: Assets/Scenes/NewGame.unity
+    path: Assets/Scenes/DemoScene.unity
     guid: e2975212245de854ba1942c9d7097297
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 87763baffbd464841899a1c997c0435d
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: cd094968096d72549a03b429c42cc2e8
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: e5692049a6066484497f6e355d59237d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
