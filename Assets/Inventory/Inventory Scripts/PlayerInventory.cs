@@ -20,13 +20,13 @@ public class PlayerInventory : MonoBehaviour
     private Transform pickupTriggerObject;
     
     [SerializeField] private InventoryNearbyUI nearbyUI;
-    private BasicPlayerControls _basicPlayerControls;
+    private PlayerMovement _playerMovement;
     
     [SerializeField] private TextMeshProUGUI slotsCountText;
     
     private void Awake()
     {
-        _basicPlayerControls = GetComponent<BasicPlayerControls>();
+        _playerMovement = GetComponent<PlayerMovement>();
     }
 
     void Start()
@@ -73,7 +73,7 @@ public class PlayerInventory : MonoBehaviour
                 slots[i] = new Item { weight = weight };
                 RefreshUI();
                 
-                _basicPlayerControls.SetWeight(CurrentWeight);
+                _playerMovement.SetWeight(CurrentWeight);
                 
                 return true;
             }
@@ -99,7 +99,7 @@ public class PlayerInventory : MonoBehaviour
         // mark empty
         slots[index].weight = 0;
     
-        _basicPlayerControls.SetWeight(CurrentWeight);
+        _playerMovement.SetWeight(CurrentWeight);
         //basicPlayerControls.RemoveWeight(droppedWeight);
         
         RefreshUI();

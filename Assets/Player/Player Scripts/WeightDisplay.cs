@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class WeightDisplay : MonoBehaviour
 {
-    public BasicPlayerControls player;
+    public PlayerMovement player;
     public TextMeshProUGUI weightText;
 
     void Update()

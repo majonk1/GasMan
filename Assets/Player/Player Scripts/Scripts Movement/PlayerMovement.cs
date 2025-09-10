@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicPlayerControls : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float walkSpeed = 6f;
@@ -45,7 +45,7 @@ public class BasicPlayerControls : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
         if (isGrounded && velocity.y < 0f)
-            velocity.y = -2f; // small downward to keep player grounded
+            velocity.y = -2f; 
     }
 
     void Move()
@@ -60,8 +60,17 @@ public class BasicPlayerControls : MonoBehaviour
         animator.SetBool("rightPressed", rightPressed);
 
         float h = 0f;
-        if (leftPressed && !rightPressed) h = -1f;
-        else if (rightPressed && !leftPressed) h = 1f;
+        if (leftPressed && !rightPressed)
+        {
+            h = -1f;
+            AudioManager.Instance.PlayMovementClip();
+        }
+        else if (rightPressed && !leftPressed)
+        {
+            h = 1f;
+            AudioManager.Instance.PlayMovementClip();
+            
+        }
 
         if (h != 0)
         {
