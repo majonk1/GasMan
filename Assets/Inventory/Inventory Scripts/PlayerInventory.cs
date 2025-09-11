@@ -30,11 +30,11 @@ public class PlayerInventory : MonoBehaviour
     {
         _playerMovement = GetComponent<PlayerMovement>();
        
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("WeightDisplay");
+        GameObject[] weightDisplay = GameObject.FindGameObjectsWithTag("WeightDisplay");
         
-        for (int i = 0; i < objs.Length; i++)
+        for (int i = 0; i < weightDisplay.Length; i++)
         {
-            weightDisplays[i] = objs[i].GetComponent<WeightDisplay>();
+            weightDisplays[i] = weightDisplay[i].GetComponent<WeightDisplay>();
         }
     }
 

@@ -18,7 +18,6 @@ public class InventoryProximity : MonoBehaviour
             Collectible c = other.GetComponent<Collectible>();
             playerInventory.OnCollectibleEnter(c);
         }
-
     }
 
     void OnTriggerExit(Collider other)
