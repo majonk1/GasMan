@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator;
 
-
     void Awake()
     {
         cc = GetComponent<CharacterController>();
@@ -62,12 +61,10 @@ public class PlayerMovement : MonoBehaviour
         if (leftPressed && !rightPressed)
         {
             h = -1f;
-            //AudioManager.Instance.PlayMovementClip();
         }
         else if (rightPressed && !leftPressed)
         {
             h = 1f;
-            //AudioManager.Instance.PlayMovementClip();
             
         }
 
@@ -85,6 +82,8 @@ public class PlayerMovement : MonoBehaviour
         // Gravity
         velocity.y += gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
+
+        AudioManager.Instance?.SetMovementLoop(h != 0f);
     }
 
     public void SetWeight(float w)

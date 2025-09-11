@@ -104,6 +104,9 @@ public class PlayerInventory : MonoBehaviour
         {
             GameObject weightPrefab = Instantiate(circlePrefab, dropPoint.position, Quaternion.identity);
             weightPrefab.GetComponent<Collectible>().weight = droppedWeight;
+
+            var sfx = weightPrefab.GetComponent<CollectibleSounds>();
+            if (sfx != null) sfx.PlayDrop();
         }
 
         // mark empty
@@ -227,6 +230,9 @@ public class PlayerInventory : MonoBehaviour
             
             return false;
         }
+
+        var sfx = col.GetComponent<CollectibleSounds>();
+        if (sfx != null) sfx.PlayPickup();
 
         bool added = AddItem(col.weight);
         if (added)
