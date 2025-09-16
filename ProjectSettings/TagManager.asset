@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - FinishBox
   - WeightDisplay
+  - DoorDropZone
   layers:
   - Default
   - TransparentFX
