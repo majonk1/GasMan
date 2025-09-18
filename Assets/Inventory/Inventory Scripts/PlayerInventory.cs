@@ -248,4 +248,56 @@ public class PlayerInventory : MonoBehaviour
 
         return added;
     }
+    
+    
+    public PlayerStatus GetPlayerStatus()
+    {
+        var status = new PlayerStatus
+        {
+            playerName = this.gameObject.name,
+            slotWeights = new float[slots != null ? slots.Length : 0],
+            currentWeight = this.currentWeight
+        };
+
+        if (slots != null)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                float weightForThisSlot = 0f;
+
+                if (!slots[i].IsEmpty)
+                {
+                    weightForThisSlot = slots[i].weight;
+                }
+
+                status.slotWeights[i] = weightForThisSlot;
+            }
+        }
+
+        return status;
+    }
+    
+    public void ApplyPlayerStatus(PlayerStatus status)
+    {
+        if (status == null) return;
+
+        if (slots == null || slots.Length != status.slotWeights.Length)
+        {
+            slots = new Item[status.slotWeights.Length];
+        }
+
+        for (int i = 0; i < status.slotWeights.Length; i++)
+        {
+            float w = status.slotWeights[i];
+            if (w > 0f)
+                slots[i] = new Item { weight = w };
+            else
+                //Empty
+                slots[i] = new Item(); 
+        }
+
+        RefreshUI();
+        RefreshWeightDisplay(currentWeight);
+        if (_playerMovement != null) _playerMovement.SetWeight(currentWeight);
+    }
 }
