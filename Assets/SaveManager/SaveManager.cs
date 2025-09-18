@@ -10,6 +10,14 @@ public class SaveManager : MonoBehaviour
     public string playerTag = "Player";
     public List<Snapshot> snapshots = new List<Snapshot>();
 
+
+    private FloorController floorController;
+
+    private void Awake()
+    {
+        floorController = GameObject.FindGameObjectWithTag("Floor").GetComponent<FloorController>();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -29,7 +37,9 @@ public class SaveManager : MonoBehaviour
         return new Snapshot
         {
             collectibles = GatherCollectibles(),
-            players = GatherPlayers()
+            players = GatherPlayers(),
+            floor = floorController.GetFloorState() 
+            
         };
     }
 
@@ -102,7 +112,10 @@ public class SaveManager : MonoBehaviour
         Snapshot snap = snapshots[index];
         ClearExistingCollectibles();
         SpawnCollectiblesFromSnapshot(snap.collectibles);
-        RestorePlayersFromSnapshot(snap.players);
+        RestorePlayerFromSnapshot(snap.players);
+        
+        floorController.ApplyFloorState(snap.floor);
+        
     }
 
     private bool ValidateSnapshotIndex(int index)
@@ -139,12 +152,13 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private void RestorePlayersFromSnapshot(List<PlayerStatus> savedPlayers)
+    private void RestorePlayerFromSnapshot(List<PlayerStatus> savedPlayer)
     {
         GameObject scenePlayer = GameObject.FindGameObjectWithTag(playerTag);
 
-        PlayerStatus saved = savedPlayers[0];
+        PlayerStatus saved = savedPlayer[0];
         scenePlayer.transform.position = saved.position;
+        
         PlayerInventory inv = scenePlayer.GetComponent<PlayerInventory>();
         if (inv != null)
         {
@@ -159,6 +173,7 @@ public class SaveManager : MonoBehaviour
             Debug.LogWarning("There are no snap shots");
             return;
         }
+        
         RestoreSnapshot(0);
     }
 }

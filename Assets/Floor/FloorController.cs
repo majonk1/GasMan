@@ -66,4 +66,40 @@ public class FloorController : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, targetWorldPos, moveSpeed * Time.deltaTime);
     }
+    
+    public FloorState GetFloorState()
+    {
+        return new FloorState
+        {
+            currentTargetIndex = currentTargetIndex,
+            position = transform.position
+        };
+    }
+
+    public void ApplyFloorState(FloorState state)
+    {
+        int savedIndex = state.currentTargetIndex;
+
+        if (positions != null && positions.Count > 0)
+        {
+            if (savedIndex >= 0 && savedIndex < positions.Count)
+            {
+                currentTargetIndex = savedIndex;
+                currentTargetTransform = positions[currentTargetIndex];
+            }
+            else
+            {
+                Debug.LogError("floor index error, out of range.");
+                currentTargetIndex = -1;
+                currentTargetTransform = null;
+            }
+        }
+        else
+        {
+            currentTargetIndex = -1;
+            currentTargetTransform = null;
+        }
+
+        transform.position = state.position;
+    }
 }
