@@ -90,16 +90,8 @@ public class FloorController : MonoBehaviour
             else
             {
                 Debug.LogError("floor index error, out of range.");
-                currentTargetIndex = -1;
-                currentTargetTransform = null;
             }
         }
-        else
-        {
-            currentTargetIndex = -1;
-            currentTargetTransform = null;
-        }
-
         transform.position = state.position;
     }
 }

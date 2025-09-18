@@ -154,12 +154,16 @@ public class SaveManager : MonoBehaviour
 
     private void RestorePlayerFromSnapshot(List<PlayerStatus> savedPlayer)
     {
-        GameObject scenePlayer = GameObject.FindGameObjectWithTag(playerTag);
+        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
 
         PlayerStatus saved = savedPlayer[0];
-        scenePlayer.transform.position = saved.position;
+        CharacterController controller = player.GetComponent<CharacterController>();
         
-        PlayerInventory inv = scenePlayer.GetComponent<PlayerInventory>();
+        controller.enabled = false;
+        player.transform.position = saved.position;
+        controller.enabled = true;
+        
+        PlayerInventory inv = player.GetComponent<PlayerInventory>();
         if (inv != null)
         {
             inv.ApplyPlayerStatus(saved);
