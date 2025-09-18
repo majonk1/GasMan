@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 5
+  weightText: {fileID: 8521815448483198008}
 --- !u!82 &8889440380298597044
 AudioSource:
   m_ObjectHideFlags: 0
