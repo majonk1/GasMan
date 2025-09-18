@@ -20,16 +20,17 @@ public class SaveManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             AddSnapshot();
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            QuickLoadFirstSnapshot();
-            
-        }
+        //for debug and testing
+        if (Input.GetKeyDown(KeyCode.Alpha1)) RestoreSnapshot(0);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) RestoreSnapshot(1);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) RestoreSnapshot(2);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) RestoreSnapshot(3);
+        if (Input.GetKeyDown(KeyCode.Alpha5)) RestoreSnapshot(4);
     }
 
     private Snapshot CreateSnapshot()
@@ -168,16 +169,5 @@ public class SaveManager : MonoBehaviour
         {
             inv.ApplyPlayerStatus(saved);
         }
-    }
-
-    private void QuickLoadFirstSnapshot()
-    {
-        if (snapshots == null || snapshots.Count == 0)
-        {
-            Debug.LogWarning("There are no snap shots");
-            return;
-        }
-        
-        RestoreSnapshot(0);
     }
 }
