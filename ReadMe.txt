@@ -1,3 +1,6 @@
+Trello: https://trello.com/invite/b/68d223373c421f39b8bdfdb2/ATTIce2e856996b54d935016b3a34fb7299dE34E332D/my-trello-board
+
+
 Sam Bib:
 Inventory: https://www.youtube.com/watch?v=pmBv0Cagx_o&ab_channel=GameDevBeginner
 UI: https://www.youtube.com/watch?v=1OwQflHq5kg&t=34s&ab_channel=ChristinaCreatesGames
