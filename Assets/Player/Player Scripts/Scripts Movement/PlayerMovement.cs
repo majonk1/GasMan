@@ -92,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("rightPressed", rightPressed);
         }
 
+        //movement
         float h = 0f;
         if (leftPressed && !rightPressed)
             h = -1f;
