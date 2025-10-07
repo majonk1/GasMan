@@ -82,8 +82,8 @@ public class PlayerInventory : MonoBehaviour
                 slots[i] = new Item { weight = weight };
                 RefreshUI();
                 
-                RefreshWeightDisplay(currentWeight);
-                _playerMovement.SetWeight(currentWeight);
+                RefreshWeightDisplay(currentAvgWeight);
+                _playerMovement.SetWeight(currentAvgWeight);
                 
                 return true;
             }
@@ -99,28 +99,28 @@ public class PlayerInventory : MonoBehaviour
         if (slots[index].IsEmpty) return;
         
         float droppedWeight = slots[index].weight;
-        print("droppedWeight: " + droppedWeight);
+        
         if (circlePrefab != null && dropPoint != null)
         {
+            //Spawn Item
             GameObject weightPrefab = Instantiate(circlePrefab, dropPoint.position, Quaternion.identity);
             weightPrefab.GetComponent<Collectible>().weight = droppedWeight;
             weightPrefab.GetComponentInChildren<TextMeshPro>().text = droppedWeight.ToString();
             
             var sfx = weightPrefab.GetComponent<CollectibleSounds>();
-            if (sfx != null) sfx.PlayDrop();
+            sfx.PlayDrop();
         }
 
         // mark empty
         //Use .IsEmpty? 
         slots[index].weight = 0;
     
-        RefreshWeightDisplay(currentWeight);
+        RefreshWeightDisplay(currentAvgWeight);
         
-        _playerMovement.SetWeight(currentWeight);
+        _playerMovement.SetWeight(currentAvgWeight);
         
         RefreshUI();
     }
-
 
     void RefreshUI()
     {
@@ -140,21 +140,12 @@ public class PlayerInventory : MonoBehaviour
         foreach (var display in weightDisplays)
         {
             if (display != null)
-                display.Refresh(currentWeight);
+                display.Refresh(currentAvgWeight);
         }
 
     }
 
-    public float currentWeight
-    {
-        get
-        {
-            return AverageWeight;
-        }
-    }
-    
-
-    public float AverageWeight
+    public float currentAvgWeight
     {
         get
         {
@@ -179,7 +170,7 @@ public class PlayerInventory : MonoBehaviour
             return Mathf.RoundToInt(avg + 0.1f);
         } 
     }
-    
+
     internal void OnCollectibleEnter(Collectible c)
     {
         if (c == null) return;
@@ -200,7 +191,7 @@ public class PlayerInventory : MonoBehaviour
     
     public void UpdateSlotsCount()
     {
-        if (slots == null || slots.Length == 0)
+        if (slots.Length == 0)
         {
             slotsCountText.text = $"Total: 0/0";
             return;
@@ -221,6 +212,7 @@ public class PlayerInventory : MonoBehaviour
     public bool PickupNearbyAt(int index)
     {
         if (index < 0 || index >= nearbyCollectibles.Count) return false;
+        
         var col = nearbyCollectibles[index];
         if (col == null)
         {
@@ -232,18 +224,20 @@ public class PlayerInventory : MonoBehaviour
             return false;
         }
 
-        var sfx = col.GetComponent<CollectibleSounds>();
-        if (sfx != null) sfx.PlayPickup();
+        CollectibleSounds sfx = col.GetComponent<CollectibleSounds>();
+        sfx.PlayPickup();
 
         bool added = AddItem(col.weight);
         if (added)
         {
-            //Need to refresh 
             if (nearbyUI != null && nearbyUI.isActiveAndEnabled)
                 nearbyUI.RefreshNearbyUI();
             
-            nearbyCollectibles.RemoveAt(index);
-            Destroy(col.gameObject);
+            if (!col.isInfinite)
+            {
+                nearbyCollectibles.RemoveAt(index);
+                Destroy(col.gameObject);
+            }
         }
 
         return added;
@@ -256,7 +250,7 @@ public class PlayerInventory : MonoBehaviour
         {
             playerName = this.gameObject.name,
             slotWeights = new float[slots != null ? slots.Length : 0],
-            currentWeight = this.currentWeight
+            currentWeight = this.currentAvgWeight
         };
 
         if (slots != null)
@@ -297,7 +291,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         RefreshUI();
-        RefreshWeightDisplay(currentWeight);
-        if (_playerMovement != null) _playerMovement.SetWeight(currentWeight);
+        RefreshWeightDisplay(currentAvgWeight);
+        if (_playerMovement != null) _playerMovement.SetWeight(currentAvgWeight);
     }
 }

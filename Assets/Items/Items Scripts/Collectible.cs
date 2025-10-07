@@ -6,6 +6,7 @@ public class Collectible : MonoBehaviour
 {
     public float weight = 5f;
     [SerializeField] TextMeshPro weightText;
+    public bool isInfinite = false;
     
     private void Start()
     {
