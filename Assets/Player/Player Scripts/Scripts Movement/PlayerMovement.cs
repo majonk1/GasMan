@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Weight")]
     public float currentWeight = 0f;
 
+    public bool canMove = true;
+
     private CharacterController cc;
     private Vector3 velocity;
     private bool isGrounded;
@@ -28,7 +30,14 @@ public class PlayerMovement : MonoBehaviour
         {
             groundCheck = new GameObject("GroundCheck").transform;
             groundCheck.SetParent(transform);
-            groundCheck.localPosition = new Vector3(0, -cc.height / 2f, 0);
+            
+            //Determine how far below the player the groundCheck object should be placed.
+            //If the CharacterController (cc) exists and has a valid height, use half of that height.
+            //Otherwise, default to 1 unit below the player.
+            float halfHeight = (cc != null && cc.height > 0f) ? cc.height / 2f : 1f;
+            
+            //Position the groundCheck directly below the player, at the bottom of the CharacterController capsule.
+            groundCheck.localPosition = new Vector3(0, -halfHeight, 0);
         }
 
         animator = GetComponentInChildren<Animator>();
@@ -36,15 +45,38 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //Always do grounded check so physics state remains correct.
         GroundCheck();
+
+        //player cant move when platfrom is moving
+        if (!canMove)
+        {
+            if (animator != null)
+            {
+                animator.SetBool("leftPressed", false);
+                animator.SetBool("rightPressed", false);
+            }
+
+            velocity.y += gravity * Time.deltaTime;
+            cc.Move(velocity * Time.deltaTime);
+
+            return;
+        }
+
         Move();
     }
 
     void GroundCheck()
     {
+        if (groundCheck == null)
+        {
+            isGrounded = false;
+            return;
+        }
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
         if (isGrounded && velocity.y < 0f)
-            velocity.y = -2f; 
+            velocity.y = -2f;
     }
 
     void Move()
@@ -54,28 +86,25 @@ public class PlayerMovement : MonoBehaviour
         bool leftPressed = Input.GetKey(KeyCode.A);
         bool rightPressed = Input.GetKey(KeyCode.D);
 
-        animator.SetBool("leftPressed", leftPressed);
-        animator.SetBool("rightPressed", rightPressed);
+        if (animator != null)
+        {
+            animator.SetBool("leftPressed", leftPressed);
+            animator.SetBool("rightPressed", rightPressed);
+        }
 
         float h = 0f;
         if (leftPressed && !rightPressed)
-        {
             h = -1f;
-        }
         else if (rightPressed && !leftPressed)
-        {
             h = 1f;
-            
-        }
 
         if (h != 0)
         {
-            // Look in the direction of movement
-             Vector3 localScale = transform.localScale;
-             localScale.x = h > 0 ? 1 : -1;
-             transform.localScale = localScale;
+            Vector3 localScale = transform.localScale;
+            localScale.x = h > 0 ? 1 : -1;
+            transform.localScale = localScale;
         }
-        
+
         Vector3 move = transform.right * h;
         cc.Move(move * (speed * Time.deltaTime));
 

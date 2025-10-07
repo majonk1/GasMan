@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public FloorController floorController;
+     
     [Header("Inventory")]
     public Item[] slots; 
     public InventoryUI[] slotUI;
@@ -26,10 +28,11 @@ public class PlayerInventory : MonoBehaviour
     
     //There are two weight UI's, one top left, on in inventory, therefore need an array
     [SerializeField] private WeightDisplay[] weightDisplays = new WeightDisplay[2];
+
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
-       
+
         GameObject[] weightDisplay = GameObject.FindGameObjectsWithTag("WeightDisplay");
         
         for (int i = 0; i < weightDisplay.Length; i++)
@@ -48,6 +51,9 @@ public class PlayerInventory : MonoBehaviour
         AddItem(1f);
         
         RefreshUI();
+
+        //Ensure floor matches initial weight
+        RequestFloorMove();
     }
 
     void Update()
@@ -70,7 +76,12 @@ public class PlayerInventory : MonoBehaviour
                 Time.timeScale = 1f;
             }
         }
+    }
 
+    private void RequestFloorMove()
+    {
+        if (floorController != null)
+            floorController.RequestMoveToTarget();
     }
 
     public bool AddItem(float weight)
@@ -84,6 +95,8 @@ public class PlayerInventory : MonoBehaviour
                 
                 RefreshWeightDisplay(currentAvgWeight);
                 _playerMovement.SetWeight(currentAvgWeight);
+
+                RequestFloorMove();
                 
                 return true;
             }
@@ -111,8 +124,6 @@ public class PlayerInventory : MonoBehaviour
             sfx.PlayDrop();
         }
 
-        // mark empty
-        //Use .IsEmpty? 
         slots[index].weight = 0;
     
         RefreshWeightDisplay(currentAvgWeight);
@@ -120,6 +131,8 @@ public class PlayerInventory : MonoBehaviour
         _playerMovement.SetWeight(currentAvgWeight);
         
         RefreshUI();
+
+        RequestFloorMove();
     }
 
     void RefreshUI()
@@ -293,5 +306,7 @@ public class PlayerInventory : MonoBehaviour
         RefreshUI();
         RefreshWeightDisplay(currentAvgWeight);
         if (_playerMovement != null) _playerMovement.SetWeight(currentAvgWeight);
+
+        RequestFloorMove();
     }
 }
