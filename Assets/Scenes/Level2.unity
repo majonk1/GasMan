@@ -289,7 +289,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4157979217823736922, guid: 799d665e5cda94445983d7df453016a7, type: 3}
       propertyPath: weight
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8288557987527669324, guid: 799d665e5cda94445983d7df453016a7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -749,7 +749,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4157979217823736922, guid: 799d665e5cda94445983d7df453016a7, type: 3}
       propertyPath: weight
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8288557987527669324, guid: 799d665e5cda94445983d7df453016a7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -851,7 +851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2019824549258327067, guid: c352d6bc19cfd634ebe79f49fc1b8aaa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.79
+      value: 1.88
       objectReference: {fileID: 0}
     - target: {fileID: 2019824549258327067, guid: c352d6bc19cfd634ebe79f49fc1b8aaa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -925,13 +925,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.7
       objectReference: {fileID: 0}
+    - target: {fileID: 3088471303470273274, guid: c352d6bc19cfd634ebe79f49fc1b8aaa, type: 3}
+      propertyPath: m_text
+      value: 'Weight: N'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088471303470273274, guid: c352d6bc19cfd634ebe79f49fc1b8aaa, type: 3}
+      propertyPath: m_margin.z
+      value: -0.8562269
+      objectReference: {fileID: 0}
     - target: {fileID: 7528987653425863800, guid: c352d6bc19cfd634ebe79f49fc1b8aaa, type: 3}
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
     - target: {fileID: 7714519509641971329, guid: c352d6bc19cfd634ebe79f49fc1b8aaa, type: 3}
       propertyPath: amountToOpenTheDoor
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714519509641971329, guid: c352d6bc19cfd634ebe79f49fc1b8aaa, type: 3}
+      propertyPath: equalAmountToOpenTheDoor
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

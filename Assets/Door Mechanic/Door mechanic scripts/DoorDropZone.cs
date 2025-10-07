@@ -5,33 +5,40 @@ using UnityEngine;
 public class DoorDropZone : MonoBehaviour
 {
     [SerializeField] private TextMeshPro doorText;
-    [SerializeField] private float weightInDropZone = 0;
+    private float weightInDropZone = 0;
 
     [SerializeField] private GameObject attachedDoor;
-    [SerializeField] private float amountToOpenTheDoor;
+    [SerializeField] private float equalAmountToOpenTheDoor;
+
+    private GameObject _collectible;
+
+    private void Start()
+    {
+        UpdateDoorUi();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Collectible"))
         {
-            //How does player round effect this?
-            weightInDropZone += other.GetComponent<Collectible>().weight;
-            UpdateDoorUi();
-            isDoorOpen();
+            weightInDropZone = other.GetComponent<Collectible>().weight;
+            isDoorOpen(other.gameObject);
         }
     }
 
-    private void isDoorOpen()
+    private void isDoorOpen(GameObject _collectible)
     {
-        if (weightInDropZone >= amountToOpenTheDoor)
+        if (weightInDropZone == equalAmountToOpenTheDoor)
         {
             attachedDoor.SetActive(false);
             doorText.enabled = false;
+            
+            Destroy(_collectible);
         }
     }
 
     private void UpdateDoorUi()
     {
-        doorText.text = $"Weight: {weightInDropZone}";
+        doorText.text = $"Weight: {equalAmountToOpenTheDoor}";
     }
 }
