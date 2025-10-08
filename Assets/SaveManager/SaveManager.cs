@@ -5,32 +5,50 @@ using TMPro;
 
 public class SaveManager : MonoBehaviour
 {
+    public static SaveManager Instance { get; private set; }
+
+    [Header("References")]
     public GameObject collectiblePrefab;
     public string collectibleTag = "Collectible";
     public string playerTag = "Player";
-    public List<Snapshot> snapshots = new List<Snapshot>();
 
+    // We still store a Snapshot object, but only one (index 0). Always overwrite.
+    //Therefore we dont need an Array
+    public Snapshot savedSnapshot = null;
 
     private FloorController floorController;
 
     private void Awake()
     {
-        floorController = GameObject.FindGameObjectWithTag("Floor").GetComponent<FloorController>();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        GameObject floorObj = GameObject.FindGameObjectWithTag("Floor");
+        if (floorObj != null)
+        {
+            floorController = floorObj.GetComponent<FloorController>();
+        }
     }
 
     private void Update()
     {
+        // debug shortcuts
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            AddSnapshot();
+            SaveOverwrite();
+            Debug.Log("[SaveManager] Saved overwrite snapshot (Q).");
         }
 
-        //for debug and testing
-        if (Input.GetKeyDown(KeyCode.Alpha1)) RestoreSnapshot(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) RestoreSnapshot(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) RestoreSnapshot(2);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) RestoreSnapshot(3);
-        if (Input.GetKeyDown(KeyCode.Alpha5)) RestoreSnapshot(4);
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestoreSavedSnapshot();
+            Debug.Log("[SaveManager] Restored saved snapshot (R).");
+        }
     }
 
     private Snapshot CreateSnapshot()
@@ -39,28 +57,31 @@ public class SaveManager : MonoBehaviour
         {
             collectibles = GatherCollectibles(),
             players = GatherPlayers(),
-            floor = floorController.GetFloorState() 
-            
+            floor = floorController != null ? floorController.GetFloorState() : null
         };
     }
 
-    public void AddSnapshot()
+    public void SaveOverwrite()
     {
-        var snap = CreateSnapshot();
-        snapshots.Add(snap);
+        savedSnapshot = CreateSnapshot();
     }
 
-    public void SaveFirstSnapshot()
+    /// Restore the saved snapshot (if any). Safe to call even if no saved snapshot exists.
+    public void RestoreSavedSnapshot()
     {
-        var snap = CreateSnapshot();
-        if (snapshots.Count == 0)
+        if (savedSnapshot == null)
         {
-            snapshots.Insert(0, snap);
+            Debug.LogWarning("[SaveManager] No saved snapshot to restore.");
+            return;
         }
-        else
+
+        ClearExistingCollectibles();
+        SpawnCollectiblesFromSnapshot(savedSnapshot.collectibles);
+        RestorePlayerFromSnapshot(savedSnapshot.players);
+
+        if (floorController != null && savedSnapshot.floor != null)
         {
-            Debug.LogError("Indexing problem");
-            snapshots[0] = snap;
+            floorController.ApplyFloorState(savedSnapshot.floor);
         }
     }
 
@@ -107,28 +128,6 @@ public class SaveManager : MonoBehaviour
         return list;
     }
 
-    public void RestoreSnapshot(int index)
-    {
-        if (!ValidateSnapshotIndex(index)) return;
-        Snapshot snap = snapshots[index];
-        ClearExistingCollectibles();
-        SpawnCollectiblesFromSnapshot(snap.collectibles);
-        RestorePlayerFromSnapshot(snap.players);
-        
-        floorController.ApplyFloorState(snap.floor);
-        
-    }
-
-    private bool ValidateSnapshotIndex(int index)
-    {
-        if (index < 0 || index >= snapshots.Count)
-        {
-            Debug.LogError($"[SaveManager] RestoreSnapshot: index {index} is out of range (count={snapshots.Count}).");
-            return false;
-        }
-        return true;
-    }
-
     private void ClearExistingCollectibles()
     {
         GameObject[] existing = GameObject.FindGameObjectsWithTag(collectibleTag);
@@ -142,28 +141,53 @@ public class SaveManager : MonoBehaviour
     {
         if (collectiblePrefab == null) return;
         if (collectibles == null || collectibles.Count == 0) return;
+
         foreach (CollectibleState collectible in collectibles)
         {
             GameObject go = Instantiate(collectiblePrefab, collectible.position, Quaternion.identity);
-            go.GetComponent<Collectible>();
-            collectible.weight = collectible.weight;
-            
+            var c = go.GetComponent<Collectible>();
+            if (c != null)
+            {
+                c.weight = collectible.weight;
+            }
+
             var tmp = go.GetComponentInChildren<TextMeshPro>();
-            tmp.text = collectible.weight.ToString();
+            if (tmp != null)
+            {
+                tmp.text = collectible.weight.ToString();
+            }
         }
     }
 
-    private void RestorePlayerFromSnapshot(List<PlayerStatus> savedPlayer)
+    private void RestorePlayerFromSnapshot(List<PlayerStatus> savedPlayers)
     {
-        GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+        var player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player == null)
+        {
+            Debug.LogError("[SaveManager] No player found to restore.");
+            return;
+        }
 
-        PlayerStatus saved = savedPlayer[0];
+        if (savedPlayers == null || savedPlayers.Count == 0)
+        {
+            Debug.LogWarning("[SaveManager] Saved player data is empty.");
+            return;
+        }
+
+        PlayerStatus saved = savedPlayers[0];
+
         CharacterController controller = player.GetComponent<CharacterController>();
-        
-        controller.enabled = false;
-        player.transform.position = saved.position;
-        controller.enabled = true;
-        
+        if (controller != null)
+        {
+            controller.enabled = false;
+            player.transform.position = saved.position;
+            controller.enabled = true;
+        }
+        else
+        {
+            player.transform.position = saved.position;
+        }
+
         PlayerInventory inv = player.GetComponent<PlayerInventory>();
         if (inv != null)
         {

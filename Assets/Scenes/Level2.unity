@@ -337,7 +337,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8444989110655091402, guid: 799d665e5cda94445983d7df453016a7, type: 3}
       propertyPath: m_Name
-      value: Collectible
+      value: isDispenserCollectible
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521815448483198008, guid: 799d665e5cda94445983d7df453016a7, type: 3}
+      propertyPath: m_text
+      value: dispenser 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
