@@ -7,7 +7,7 @@ public class FloorController : MonoBehaviour
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private PlayerMovement playerMovement;
-    
+
     [Tooltip("Ordered list of positions. Weight 1 => index 0, Weight 2 => index 1, and so on.")]
     public List<Transform> positions = new List<Transform>();
 
@@ -95,6 +95,13 @@ public class FloorController : MonoBehaviour
             playerMovement.canMove = true;
 
         moveCoroutine = null;
+
+        //when platform finishes moving, automatically save the current state
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.SaveOverwrite();
+            Debug.Log("FloorController Platform finished moving and has saved snapshot.");
+        }
     }
 
     public FloorState GetFloorState()
@@ -108,6 +115,12 @@ public class FloorController : MonoBehaviour
 
     public void ApplyFloorState(FloorState state)
     {
+        if (state == null)
+        {
+            Debug.LogWarning("FloorController null state.");
+            return;
+        }
+
         int savedIndex = state.currentTargetIndex;
 
         if (positions != null && positions.Count > 0)
