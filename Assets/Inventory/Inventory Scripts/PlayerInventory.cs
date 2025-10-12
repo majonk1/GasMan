@@ -27,18 +27,14 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private TextMeshProUGUI slotsCountText;
     
     //There are two weight UI's, one top left, on in inventory, therefore need an array
-    [SerializeField] private WeightDisplay[] weightDisplays = new WeightDisplay[2];
+    [SerializeField] private WeightDisplay weightDisplay;
 
+    [SerializeField] private WeightDisplay playerInventoryWeightText;
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
 
-        GameObject[] weightDisplay = GameObject.FindGameObjectsWithTag("WeightDisplay");
-        
-        for (int i = 0; i < weightDisplay.Length; i++)
-        {
-            weightDisplays[i] = weightDisplay[i].GetComponent<WeightDisplay>();
-        }
+        weightDisplay = GameObject.FindGameObjectWithTag("WeightDisplay").GetComponent<WeightDisplay>();
     }
 
     void Start()
@@ -93,7 +89,7 @@ public class PlayerInventory : MonoBehaviour
                 slots[i] = new Item { weight = weight };
                 RefreshUI();
                 
-                RefreshWeightDisplay(currentAvgWeight);
+                RefreshWeightDisplay();
                 _playerMovement.SetWeight(currentAvgWeight);
 
                 RequestFloorMove();
@@ -126,7 +122,7 @@ public class PlayerInventory : MonoBehaviour
 
         slots[index].weight = 0;
     
-        RefreshWeightDisplay(currentAvgWeight);
+        RefreshWeightDisplay();
         
         _playerMovement.SetWeight(currentAvgWeight);
         
@@ -148,14 +144,10 @@ public class PlayerInventory : MonoBehaviour
         UpdateSlotsCount();
     }
 
-    private void RefreshWeightDisplay(float currenWeight)
+    private void RefreshWeightDisplay()
     {
-        foreach (var display in weightDisplays)
-        {
-            if (display != null)
-                display.Refresh(currentAvgWeight);
-        }
-
+        weightDisplay.Refresh(currentAvgWeight);
+        playerInventoryWeightText.Refresh(currentAvgWeight);
     }
 
     public float currentAvgWeight
@@ -304,7 +296,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         RefreshUI();
-        RefreshWeightDisplay(currentAvgWeight);
+        RefreshWeightDisplay();
         if (_playerMovement != null) _playerMovement.SetWeight(currentAvgWeight);
 
         RequestFloorMove();

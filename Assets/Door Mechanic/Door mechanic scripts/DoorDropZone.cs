@@ -36,7 +36,6 @@ public class DoorDropZone : MonoBehaviour
             Destroy(_collectible);
         }
     }
-
     
     public void openTheDoorsDoor(bool open)
     {
