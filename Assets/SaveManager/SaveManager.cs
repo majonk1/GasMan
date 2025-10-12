@@ -17,6 +17,10 @@ public class SaveManager : MonoBehaviour
     public Snapshot savedSnapshot = null;
 
     private FloorController floorController;
+    
+    private string _doorTag = "Door";
+    
+    private DoorSaveManager _doorSaveManager;
 
     private void Awake()
     {
@@ -33,6 +37,13 @@ public class SaveManager : MonoBehaviour
         {
             floorController = floorObj.GetComponent<FloorController>();
         }
+
+        _doorSaveManager = GetComponent<DoorSaveManager>();
+    }
+
+    private void Start()
+    {
+        _doorSaveManager.SetDoorIDs(_doorTag);
     }
 
     private void Update()
@@ -44,10 +55,10 @@ public class SaveManager : MonoBehaviour
             Debug.Log("[SaveManager] Saved overwrite snapshot (Q).");
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             RestoreSavedSnapshot();
-            Debug.Log("[SaveManager] Restored saved snapshot (R).");
+            Debug.Log("[SaveManager] Restored saved snapshot (E).");
         }
     }
 
@@ -57,7 +68,9 @@ public class SaveManager : MonoBehaviour
         {
             collectibles = GatherCollectibles(),
             players = GatherPlayers(),
-            floor = floorController != null ? floorController.GetFloorState() : null
+            floor = floorController.GetFloorState(), 
+            
+            doors = _doorSaveManager.GatherDoors(_doorTag)
         };
     }
 
@@ -83,6 +96,8 @@ public class SaveManager : MonoBehaviour
         {
             floorController.ApplyFloorState(savedSnapshot.floor);
         }
+        
+        _doorSaveManager.ApplyDoorStates(savedSnapshot.doors, _doorTag);
     }
 
     private List<CollectibleState> GatherCollectibles()

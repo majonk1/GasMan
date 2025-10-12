@@ -23,6 +23,8 @@ public class DoorDropZone : MonoBehaviour
         {
             weightInDropZone = other.GetComponent<Collectible>().weight;
             isDoorOpen(other.gameObject);
+            
+            
         }
     }
 
@@ -30,11 +32,16 @@ public class DoorDropZone : MonoBehaviour
     {
         if (weightInDropZone == equalAmountToOpenTheDoor)
         {
-            attachedDoor.SetActive(false);
-            doorText.enabled = false;
-            
+            openTheDoorsDoor(false);
             Destroy(_collectible);
         }
+    }
+
+    
+    public void openTheDoorsDoor(bool open)
+    {
+        attachedDoor.SetActive(open);
+        doorText.enabled = open;
     }
 
     private void UpdateDoorUi()

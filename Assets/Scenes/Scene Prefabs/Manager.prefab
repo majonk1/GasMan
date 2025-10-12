@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5780858866894514878}
   - component: {fileID: 3136412248025308044}
+  - component: {fileID: 273790987623658126}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: Untagged
@@ -42,6 +43,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c36c0419772d4a84f893a2498fbd3ec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectiblePrefab: {fileID: 0}
+  collectibleTag: Collectible
+  playerTag: Player
+  savedSnapshot:
+    collectibles: []
+    players: []
+    floor:
+      currentTargetIndex: 0
+      position: {x: 0, y: 0, z: 0}
+    doors: []
+  doorTag: Door
+--- !u!114 &273790987623658126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330553462536864406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10a6826895ba7a14593df5830608732a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1909146139956516156
