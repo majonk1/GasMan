@@ -9,6 +9,6 @@ public class WeightDisplay : MonoBehaviour
 
     public void Refresh(float weight)
     {
-        weightText.text = $"Your Weight: {weight:F0}";
+        weightText.text = $"Floating Value: {weight:F0}";
     }
 }

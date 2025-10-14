@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public FloorController floorController;
+     
     [Header("Inventory")]
     public Item[] slots; 
     public InventoryUI[] slotUI;
@@ -25,17 +27,14 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private TextMeshProUGUI slotsCountText;
     
     //There are two weight UI's, one top left, on in inventory, therefore need an array
-    [SerializeField] private WeightDisplay[] weightDisplays = new WeightDisplay[2];
+    [SerializeField] private WeightDisplay weightDisplay;
+
+    [SerializeField] private WeightDisplay playerInventoryWeightText;
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
-       
-        GameObject[] weightDisplay = GameObject.FindGameObjectsWithTag("WeightDisplay");
-        
-        for (int i = 0; i < weightDisplay.Length; i++)
-        {
-            weightDisplays[i] = weightDisplay[i].GetComponent<WeightDisplay>();
-        }
+
+        weightDisplay = GameObject.FindGameObjectWithTag("WeightDisplay").GetComponent<WeightDisplay>();
     }
 
     void Start()
@@ -48,6 +47,9 @@ public class PlayerInventory : MonoBehaviour
         AddItem(1f);
         
         RefreshUI();
+
+        //Ensure floor matches initial weight
+        RequestFloorMove();
     }
 
     void Update()
@@ -70,7 +72,12 @@ public class PlayerInventory : MonoBehaviour
                 Time.timeScale = 1f;
             }
         }
+    }
 
+    private void RequestFloorMove()
+    {
+        if (floorController != null)
+            floorController.RequestMoveToTarget();
     }
 
     public bool AddItem(float weight)
@@ -82,8 +89,10 @@ public class PlayerInventory : MonoBehaviour
                 slots[i] = new Item { weight = weight };
                 RefreshUI();
                 
-                RefreshWeightDisplay(currentWeight);
-                _playerMovement.SetWeight(currentWeight);
+                RefreshWeightDisplay();
+                _playerMovement.SetWeight(currentAvgWeight);
+
+                RequestFloorMove();
                 
                 return true;
             }
@@ -99,27 +108,28 @@ public class PlayerInventory : MonoBehaviour
         if (slots[index].IsEmpty) return;
         
         float droppedWeight = slots[index].weight;
-        print("droppedWeight: " + droppedWeight);
+        
         if (circlePrefab != null && dropPoint != null)
         {
+            //Spawn Item
             GameObject weightPrefab = Instantiate(circlePrefab, dropPoint.position, Quaternion.identity);
             weightPrefab.GetComponent<Collectible>().weight = droppedWeight;
-
+            weightPrefab.GetComponentInChildren<TextMeshPro>().text = droppedWeight.ToString();
+            
             var sfx = weightPrefab.GetComponent<CollectibleSounds>();
-            if (sfx != null) sfx.PlayDrop();
+            sfx.PlayDrop();
         }
 
-        // mark empty
-        //Use .IsEmpty? 
         slots[index].weight = 0;
     
-        RefreshWeightDisplay(currentWeight);
+        RefreshWeightDisplay();
         
-        _playerMovement.SetWeight(currentWeight);
+        _playerMovement.SetWeight(currentAvgWeight);
         
         RefreshUI();
-    }
 
+        RequestFloorMove();
+    }
 
     void RefreshUI()
     {
@@ -134,26 +144,13 @@ public class PlayerInventory : MonoBehaviour
         UpdateSlotsCount();
     }
 
-    private void RefreshWeightDisplay(float currenWeight)
+    private void RefreshWeightDisplay()
     {
-        foreach (var display in weightDisplays)
-        {
-            if (display != null)
-                display.Refresh(currentWeight);
-        }
-
+        weightDisplay.Refresh(currentAvgWeight);
+        playerInventoryWeightText.Refresh(currentAvgWeight);
     }
 
-    public float currentWeight
-    {
-        get
-        {
-            return AverageWeight;
-        }
-    }
-    
-
-    public float AverageWeight
+    public float currentAvgWeight
     {
         get
         {
@@ -178,7 +175,7 @@ public class PlayerInventory : MonoBehaviour
             return Mathf.RoundToInt(avg + 0.1f);
         } 
     }
-    
+
     internal void OnCollectibleEnter(Collectible c)
     {
         if (c == null) return;
@@ -199,7 +196,7 @@ public class PlayerInventory : MonoBehaviour
     
     public void UpdateSlotsCount()
     {
-        if (slots == null || slots.Length == 0)
+        if (slots.Length == 0)
         {
             slotsCountText.text = $"Total: 0/0";
             return;
@@ -220,6 +217,7 @@ public class PlayerInventory : MonoBehaviour
     public bool PickupNearbyAt(int index)
     {
         if (index < 0 || index >= nearbyCollectibles.Count) return false;
+        
         var col = nearbyCollectibles[index];
         if (col == null)
         {
@@ -231,20 +229,76 @@ public class PlayerInventory : MonoBehaviour
             return false;
         }
 
-        var sfx = col.GetComponent<CollectibleSounds>();
-        if (sfx != null) sfx.PlayPickup();
+        CollectibleSounds sfx = col.GetComponent<CollectibleSounds>();
+        sfx.PlayPickup();
 
         bool added = AddItem(col.weight);
         if (added)
         {
-            //Need to refresh 
             if (nearbyUI != null && nearbyUI.isActiveAndEnabled)
                 nearbyUI.RefreshNearbyUI();
             
-            nearbyCollectibles.RemoveAt(index);
-            Destroy(col.gameObject);
+            if (!col.isInfinite)
+            {
+                nearbyCollectibles.RemoveAt(index);
+                Destroy(col.gameObject);
+            }
         }
 
         return added;
+    }
+    
+    
+    public PlayerStatus GetPlayerStatus()
+    {
+        var status = new PlayerStatus
+        {
+            playerName = this.gameObject.name,
+            slotWeights = new float[slots != null ? slots.Length : 0],
+            currentWeight = this.currentAvgWeight
+        };
+
+        if (slots != null)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                float weightForThisSlot = 0f;
+
+                if (!slots[i].IsEmpty)
+                {
+                    weightForThisSlot = slots[i].weight;
+                }
+
+                status.slotWeights[i] = weightForThisSlot;
+            }
+        }
+
+        return status;
+    }
+    
+    public void ApplyPlayerStatus(PlayerStatus status)
+    {
+        if (status == null) return;
+
+        if (slots == null || slots.Length != status.slotWeights.Length)
+        {
+            slots = new Item[status.slotWeights.Length];
+        }
+
+        for (int i = 0; i < status.slotWeights.Length; i++)
+        {
+            float w = status.slotWeights[i];
+            if (w > 0f)
+                slots[i] = new Item { weight = w };
+            else
+                //Empty
+                slots[i] = new Item(); 
+        }
+
+        RefreshUI();
+        RefreshWeightDisplay();
+        if (_playerMovement != null) _playerMovement.SetWeight(currentAvgWeight);
+
+        RequestFloorMove();
     }
 }
