@@ -46,4 +46,3 @@ For the tutorial level, the text is intended to help the player understand some 
 For the second level, the platforms are colour coded based on the layer they are in, in order to clearly portray which discrete layer they fall within.
 
 For an actual implementation of the game, the tutorial would be more interactive, and not just have floating text.
-Additionally, other levels will still feature some colour coding to help portray the layers of the level, just to a less glaring degree, such as through coloured gases in the background for that layer. (Particles were very much out of scope for this prototype)
