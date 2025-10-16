@@ -116,10 +116,15 @@ public class PlayerInventory : MonoBehaviour
             //Spawn Item
             GameObject weightPrefab = Instantiate(circlePrefab, dropPoint.position, Quaternion.identity);
             weightPrefab.GetComponent<Collectible>().weight = droppedWeight;
-            weightPrefab.GetComponentInChildren<TextMeshPro>().text = droppedWeight.ToString();
+
+            //Set Ui
+            TextMeshPro weightText = weightPrefab.GetComponentInChildren<TextMeshPro>();
+            weightText.text = droppedWeight.ToString();
+            weightText.color = Color.black;
             
             SetGasColour(weightPrefab, droppedWeight);
             
+            //Sound
             var sfx = weightPrefab.GetComponent<CollectibleSounds>();
             sfx.PlayDrop();
         }
