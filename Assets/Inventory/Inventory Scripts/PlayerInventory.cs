@@ -24,7 +24,11 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private InventoryNearbyUI nearbyUI;
     private PlayerMovement _playerMovement;
     
+    [Header("TextMeshProUGUI")]
     [SerializeField] private TextMeshProUGUI slotsCountText;
+    [SerializeField] private TextMeshProUGUI showCal;
+    [SerializeField] private TextMeshProUGUI totalNoRound;
+    [SerializeField] private TextMeshProUGUI divideAmount;
     
     
     //There are two weight UI's, one top left, on in inventory, therefore need an array
