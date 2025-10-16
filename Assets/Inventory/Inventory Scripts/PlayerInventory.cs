@@ -35,11 +35,15 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private WeightDisplay weightDisplay;
 
     [SerializeField] private WeightDisplay playerInventoryWeightText;
-    
+
+    private InventoryProximity _inventoryProximity;
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
 
+        _inventoryProximity = GetComponentInChildren<InventoryProximity>();
+        
+        
         weightDisplay = GameObject.FindGameObjectWithTag("WeightDisplay").GetComponent<WeightDisplay>();
     }
 
@@ -119,8 +123,16 @@ public class PlayerInventory : MonoBehaviour
         {
             //Spawn Item
             GameObject weightPrefab = Instantiate(circlePrefab, dropPoint.position, Quaternion.identity);
-            weightPrefab.GetComponent<Collectible>().weight = droppedWeight;
+            Collectible collectible = weightPrefab.GetComponent<Collectible>();
+            collectible.weight = droppedWeight;
 
+            //Force dropped item to show in proximity
+            if (_inventoryProximity != null)
+            {
+                if (_inventoryProximity.IsInsideProximity(weightPrefab.transform.position))
+                    _inventoryProximity.RegisterCollectible(collectible);
+            }
+            
             //Set Ui
             TextMeshPro weightText = weightPrefab.GetComponentInChildren<TextMeshPro>();
             weightText.text = droppedWeight.ToString();

@@ -189,9 +189,11 @@ MonoBehaviour:
   nearbyCollectibles: []
   nearbyUI: {fileID: 0}
   slotsCountText: {fileID: 0}
+  showCal: {fileID: 0}
+  totalNoRound: {fileID: 0}
+  divideAmount: {fileID: 0}
   weightDisplay: {fileID: 0}
   playerInventoryWeightText: {fileID: 0}
-  setDropColour: {fileID: 0}
 --- !u!114 &1311244842073438880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupColliderObject: {fileID: 6457733652054106733}
+  pickupCollider: {fileID: 4281032666371105167}
 --- !u!1 &6883441152649362155
 GameObject:
   m_ObjectHideFlags: 0
