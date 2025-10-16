@@ -102,19 +102,20 @@ public class SaveManager : MonoBehaviour
 
     private List<CollectibleState> GatherCollectibles()
     {
-        var list = new List<CollectibleState>();
-        var cols = GameObject.FindGameObjectsWithTag(collectibleTag);
-        foreach (var go in cols)
+        List<CollectibleState> gasCanisters = new List<CollectibleState>();
+        GameObject[] cols = GameObject.FindGameObjectsWithTag(collectibleTag);
+        foreach (GameObject gasCanister in cols)
         {
-            var c = go.GetComponent<Collectible>();
-            if (c == null) continue;
-            list.Add(new CollectibleState
+            Collectible collectible = gasCanister.GetComponent<Collectible>();
+            if (collectible == null) continue;
+            gasCanisters.Add(new CollectibleState
             {
-                position = go.transform.position,
-                weight = c.weight
+                position = gasCanister.transform.position,
+                weight = collectible.weight,
+                isInfinite = collectible.isInfinite
             });
         }
-        return list;
+        return gasCanisters;
     }
 
     private List<PlayerStatus> GatherPlayers()
@@ -152,24 +153,25 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private void SpawnCollectiblesFromSnapshot(List<CollectibleState> collectibles)
+    private void SpawnCollectiblesFromSnapshot(List<CollectibleState> collectibleStats)
     {
         if (collectiblePrefab == null) return;
-        if (collectibles == null || collectibles.Count == 0) return;
+        if (collectibleStats == null || collectibleStats.Count == 0) return;
 
-        foreach (CollectibleState collectible in collectibles)
+        foreach (CollectibleState collectibleState in collectibleStats)
         {
-            GameObject go = Instantiate(collectiblePrefab, collectible.position, Quaternion.identity);
-            var c = go.GetComponent<Collectible>();
-            if (c != null)
+            GameObject go = Instantiate(collectiblePrefab, collectibleState.position, Quaternion.identity);
+            Collectible collectible = go.GetComponent<Collectible>();
+            if (collectible != null)
             {
-                c.weight = collectible.weight;
+                collectible.weight = collectibleState.weight;
+                collectible.isInfinite = collectibleState.isInfinite;
             }
 
             var tmp = go.GetComponentInChildren<TextMeshPro>();
             if (tmp != null)
             {
-                tmp.text = collectible.weight.ToString();
+                tmp.text = collectibleState.weight.ToString();
             }
         }
     }

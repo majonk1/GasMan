@@ -6,4 +6,5 @@ public class CollectibleState
 {
     public Vector3 position;
     public float weight;
+    public bool isInfinite;
 }
