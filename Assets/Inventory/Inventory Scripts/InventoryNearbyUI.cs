@@ -83,10 +83,22 @@ public class InventoryNearbyUI : MonoBehaviour
     private void SetupEntryUI(GameObject go, Collectible collectible, int index)
     {
         var weightText = go.GetComponentInChildren<TextMeshProUGUI>();
-        if (weightText != null)
-            weightText.text = $"Floating Value: {collectible.weight:F0}";
 
-        var button = go.GetComponentInChildren<Button>();
+        if (weightText == null)
+        {
+            return;
+        }
+
+        if (collectible.isInfinite)
+        {
+            weightText.text = $"(∞) Floating Value: {collectible.weight:F0}";
+        }
+        else
+        {
+            weightText.text = $"Floating Value: {collectible.weight:F0}";
+        }
+
+        Button button = go.GetComponentInChildren<Button>();
         if (button != null)
         {
             int capturedIndex = index;

@@ -15,14 +15,13 @@ public class InventoryProximity : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Collectible"))
         {
-            Collectible c = other.GetComponent<Collectible>();
-            playerInventory.OnCollectibleEnter(c);
+            Collectible collectible = other.GetComponent<Collectible>();
+            playerInventory.OnCollectibleEnter(collectible);
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        
         if (other.TryGetComponent<Collectible>(out var c))
             playerInventory.OnCollectibleExit(c);
     }

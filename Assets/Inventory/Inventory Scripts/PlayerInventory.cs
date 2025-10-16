@@ -192,20 +192,20 @@ public class PlayerInventory : MonoBehaviour
         collectible.SetVisualColor(colour);
     }
 
-    internal void OnCollectibleEnter(Collectible c)
+    internal void OnCollectibleEnter(Collectible collectible)
     {
-        if (c == null) return;
-        if (!nearbyCollectibles.Contains(c))
+        if (collectible == null) return;
+        if (!nearbyCollectibles.Contains(collectible))
         {
-            nearbyCollectibles.Add(c);
+            nearbyCollectibles.Add(collectible);
             nearbyUI.RefreshNearbyUI();
         }
     }
 
-    internal void OnCollectibleExit(Collectible c)
+    internal void OnCollectibleExit(Collectible collectible)
     {
-        if (c == null) return;
-        nearbyCollectibles.Remove(c);
+        if (collectible == null) return;
+        nearbyCollectibles.Remove(collectible);
         nearbyUI.RefreshNearbyUI();
         
     }

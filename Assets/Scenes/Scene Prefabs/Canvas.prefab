@@ -723,7 +723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57402198f314b6c4cbb6d431117c9651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   weightText: {fileID: 3708442417876762263}
 --- !u!1 &915414111783718716
 GameObject:
@@ -3224,7 +3223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57402198f314b6c4cbb6d431117c9651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   weightText: {fileID: 6124588454435396934}
 --- !u!1 &8194669593710434601
 GameObject:
