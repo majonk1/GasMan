@@ -26,10 +26,12 @@ public class PlayerInventory : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI slotsCountText;
     
+    
     //There are two weight UI's, one top left, on in inventory, therefore need an array
     [SerializeField] private WeightDisplay weightDisplay;
 
     [SerializeField] private WeightDisplay playerInventoryWeightText;
+    
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
@@ -116,6 +118,8 @@ public class PlayerInventory : MonoBehaviour
             weightPrefab.GetComponent<Collectible>().weight = droppedWeight;
             weightPrefab.GetComponentInChildren<TextMeshPro>().text = droppedWeight.ToString();
             
+            SetGasColour(weightPrefab, droppedWeight);
+            
             var sfx = weightPrefab.GetComponent<CollectibleSounds>();
             sfx.PlayDrop();
         }
@@ -174,6 +178,18 @@ public class PlayerInventory : MonoBehaviour
             // round to nearest one (0.5 rounds up)
             return Mathf.RoundToInt(avg + 0.1f);
         } 
+    }
+
+    private void SetGasColour(GameObject weightPrefab, float droppedWeight)
+    {
+        Collectible collectible = weightPrefab.GetComponent<Collectible>();
+        collectible.GetComponentInChildren<TextMeshPro>().text = droppedWeight.ToString();
+        
+        //Gets colour
+        Color colour = SetDropColour.Instance.GetColorForWeight(droppedWeight);
+        
+        //Sets colour
+        collectible.SetVisualColor(colour);
     }
 
     internal void OnCollectibleEnter(Collectible c)

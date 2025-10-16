@@ -11,11 +11,20 @@ public class Collectible : MonoBehaviour
     private void Start()
     {
         weightText.text = weight.ToString();
+        
+        Color color = SetDropColour.Instance.GetColorForWeight(weight);
+        SetVisualColor(color);
     }
 
     void Reset()
     {
-        var c = GetComponent<Collider>();
-        if (c) c.isTrigger = true;
+        Collider collider = GetComponent<Collider>();
+        if (collider) collider.isTrigger = true;
+    }
+    
+    public void SetVisualColor(Color colour)
+    {
+        MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();
+        meshRenderer.material.color = colour;
     }
 }

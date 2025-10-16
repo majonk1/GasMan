@@ -55,7 +55,6 @@ MonoBehaviour:
       currentTargetIndex: 0
       position: {x: 0, y: 0, z: 0}
     doors: []
-  doorTag: Door
 --- !u!114 &273790987623658126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +67,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a6826895ba7a14593df5830608732a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &690366631073565044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3461350462084295199}
+  - component: {fileID: 1898991695055723123}
+  m_Layer: 0
+  m_Name: SetColourManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3461350462084295199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690366631073565044}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5164708418503974670}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1898991695055723123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690366631073565044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62876203c8000804ab7cceeccde64f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SetDropColour
+  weightColours:
+  - weight: 1
+    color: {r: 1, g: 0, b: 0, a: 0}
+  - weight: 2
+    color: {r: 0, g: 0.5815592, b: 1, a: 0}
+  - weight: 3
+    color: {r: 0, g: 1, b: 0.26801538, a: 0}
+  - weight: 4
+    color: {r: 1, g: 0.9863347, b: 0, a: 0}
+  defaultColour: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1909146139956516156
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,5 +360,6 @@ Transform:
   - {fileID: 4229953114783889861}
   - {fileID: 4516119306602218525}
   - {fileID: 5780858866894514878}
+  - {fileID: 3461350462084295199}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
