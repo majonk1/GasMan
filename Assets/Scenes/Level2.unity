@@ -311,6 +311,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 799d665e5cda94445983d7df453016a7, type: 3}
+--- !u!114 &517578757 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7865110759593518492, guid: 9f636028dd7e13f48ae5916535871c2f, type: 3}
+  m_PrefabInstance: {fileID: 4184853777838637564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57402198f314b6c4cbb6d431117c9651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &546053120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -625,6 +636,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b2847e6c013740fd82b4296cdb6d722, type: 3}
+--- !u!114 &955144565 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4337962207742527288, guid: 9f636028dd7e13f48ae5916535871c2f, type: 3}
+  m_PrefabInstance: {fileID: 4184853777838637564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57402198f314b6c4cbb6d431117c9651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &958910720 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5609069633918747330, guid: c352d6bc19cfd634ebe79f49fc1b8aaa, type: 3}
@@ -2111,6 +2133,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1962623561}
     - target: {fileID: 7892548765777037854, guid: b6901cd6da62e7a4298a1f02c4ff8388, type: 3}
+      propertyPath: weightDisplay
+      value: 
+      objectReference: {fileID: 517578757}
+    - target: {fileID: 7892548765777037854, guid: b6901cd6da62e7a4298a1f02c4ff8388, type: 3}
       propertyPath: slotsCountText
       value: 
       objectReference: {fileID: 1743004271}
@@ -2134,6 +2160,10 @@ PrefabInstance:
       propertyPath: 'slotUI.Array.data[3]'
       value: 
       objectReference: {fileID: 1372959281}
+    - target: {fileID: 7892548765777037854, guid: b6901cd6da62e7a4298a1f02c4ff8388, type: 3}
+      propertyPath: playerInventoryWeightText
+      value: 
+      objectReference: {fileID: 955144565}
     - target: {fileID: 7892548765777037854, guid: b6901cd6da62e7a4298a1f02c4ff8388, type: 3}
       propertyPath: slots.Array.data[0].weight
       value: 1
