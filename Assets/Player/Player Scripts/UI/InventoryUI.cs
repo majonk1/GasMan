@@ -28,6 +28,13 @@ public class InventoryUI : MonoBehaviour
 
         if (occupied)
             weightText.text = $"Float Value: {weight:F0}";
+        
+            //set text colour
+            /*
+            Color col = SetDropColour.Instance.GetColorForWeight(weight);
+            col.a = 1f; // alpha is 0 without this
+            weightText.color = col;
+            */
     }
     
 
