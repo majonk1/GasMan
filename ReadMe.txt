@@ -8,6 +8,7 @@ Audio Manager: https://www.youtube.com/watch?v=rdX7nhH6jdM&ab_channel=RehopeGame
 
 Controls:
 A D to move
+R to restart the level
 Tab inventory
 Mouse to interact with inventory
 Alt f4 to close game
