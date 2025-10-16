@@ -13,7 +13,7 @@ public class FloorController : MonoBehaviour
 
     public float moveSpeed = 2f;
 
-    private int currentTargetIndex = -1;
+    private int currentTargetIndex = 1;
     private Transform currentTargetTransform;
 
     private Coroutine moveCoroutine;
@@ -59,10 +59,7 @@ public class FloorController : MonoBehaviour
         if (positions == null || positions.Count == 0)
             return -1;
 
-        int clampedWeight = Mathf.Max(1, weight);
-        int idx = clampedWeight - 1;
-        idx = Mathf.Clamp(idx, 0, positions.Count - 1);
-        return idx;
+        return Mathf.Clamp(weight, 0, positions.Count);
     }
 
     private IEnumerator MoveToTargetCoroutine()
