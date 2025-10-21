@@ -49,12 +49,14 @@ public class PlayerInventory : MonoBehaviour
 
     void Start()
     {
-        slots = new Item[4];
+        //slots = new Item[4];
         
         for (int i = 0; i < slotUI.Length; i++)
             slotUI[i].Setup(i, this);
 
-        AddItem(1f);
+	AddItem(0f); //this will just update the UI, because the refreshUI() doesnt the floating value indicator
+
+        //AddItem(1f);
         
         RefreshUI();
 
