@@ -6,90 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="df241629-9040-4dc7-a622-ab4629779107" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.GasMan/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.GasMan/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Player/Player Scripts/InventoryProximity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Player/Player Scripts/InventoryProximity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/W11_Level1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/W11_Level1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/W11_Level2.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/W11_Level2.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/W11_Level4.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/W11_Level4.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/W11_Level5.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/W11_Level5.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/beaker.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/boxes.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/container.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/desk.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/hatch.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/seat.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/Beaker.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/BlueContainer.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/Boxes.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/Container.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/Desk.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/GreenContainer.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/Seat.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/TerrariumBase.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/TerrariumGlass.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/sp files/hatch.spp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/terrariumbase.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/terrariumglass.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Beaker_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Beaker_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Beaker_Emissive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Beaker_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Beaker_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Beaker_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/BlueContainer_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/BlueContainer_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/BlueContainer_Emissive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/BlueContainer_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/BlueContainer_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/BlueContainer_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Boxes_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Boxes_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Boxes_Emissive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Boxes_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Boxes_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Boxes_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Desk_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Desk_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Desk_Emissive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Desk_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Desk_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Desk_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/GreenContainer_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/GreenContainer_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/GreenContainer_Emissive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/GreenContainer_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/GreenContainer_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/GreenContainer_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Seat_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Seat_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Seat_Emissive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Seat_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Seat_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/Seat_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/container_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/container_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/container_Emissive.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/container_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/container_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/container_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/hatch_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/hatch_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/hatch_Emissive .png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/hatch_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/hatch_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/hatch_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumbase_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumbase_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumbase_Emissive .png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumbase_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumbase_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumbase_Roughness.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumglass_AO.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumglass_BaseColour.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumglass_Emissive .png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumglass_Metal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumglass_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TexturesAndMesh/textures/terrariumglass_Roughness.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +115,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1761007434159</updated>
-      <workItem from="1761007441593" duration="1071000" />
+      <workItem from="1761007441593" duration="1289000" />
     </task>
     <servers />
   </component>
