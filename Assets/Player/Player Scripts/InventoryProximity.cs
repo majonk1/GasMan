@@ -37,8 +37,10 @@ public class InventoryProximity : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<Collectible>(out var c))
-            playerInventory.OnCollectibleExit(c);
+        if (other.gameObject.CompareTag("Collectible"))
+        {
+            if (other.TryGetComponent<Collectible>(out var c))
+                playerInventory.OnCollectibleExit(c);
+        }
     }
-
 }
