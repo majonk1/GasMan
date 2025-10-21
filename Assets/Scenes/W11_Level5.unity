@@ -5473,6 +5473,10 @@ PrefabInstance:
       value: backWall (8)
       objectReference: {fileID: 0}
     - target: {fileID: 4345462243148864545, guid: 114a596a1d070f9449bbb12d96b13486, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.758727
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345462243148864545, guid: 114a596a1d070f9449bbb12d96b13486, type: 3}
       propertyPath: m_LocalScale.z
       value: 4.7617054
       objectReference: {fileID: 0}
@@ -5515,6 +5519,18 @@ PrefabInstance:
     - target: {fileID: 4345462243148864545, guid: 114a596a1d070f9449bbb12d96b13486, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372934608341714792, guid: 114a596a1d070f9449bbb12d96b13486, type: 3}
+      propertyPath: m_Size.y
+      value: 1.356614
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372934608341714792, guid: 114a596a1d070f9449bbb12d96b13486, type: 3}
+      propertyPath: m_Size.z
+      value: 0.9999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372934608341714792, guid: 114a596a1d070f9449bbb12d96b13486, type: 3}
+      propertyPath: m_Center.y
+      value: -0.17830688
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
