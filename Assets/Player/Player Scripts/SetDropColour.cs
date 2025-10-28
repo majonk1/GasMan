@@ -1,7 +1,14 @@
 using UnityEngine;
 
+/// <summary>
+/// Manages the items weight and its corresponding display color.
+/// Uses a singleton pattern to ensure a single global instance persists across scenes.
+/// </summary>
 public class SetDropColour : MonoBehaviour
 {
+    /// <summary>
+    /// Defines the gass colour and weight.
+    /// </summary>
     [System.Serializable]
     public struct WeightColour
     {
@@ -26,8 +33,13 @@ public class SetDropColour : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
-    // Get colour for a given weight
+      
+	/// <summary>
+    /// Returns the assigned color for the given weight.
+    /// If no match is found, returns the default color.
+    /// </summary>
+    /// <param name="weight">Weight to look up.</param>
+    /// <returns>Color to the given weight or default color if its invalid.</returns>
     public Color GetColorForWeight(float weight)
     {
         int _weight = Mathf.RoundToInt(weight);

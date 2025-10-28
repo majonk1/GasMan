@@ -35,6 +35,10 @@ public class InventoryNearbyUI : MonoBehaviour
         RefreshNearbyUI();
     }
 
+    /// <summary>
+    /// Rebuilds the entire nearby collectible list UI based on the current player inventory.
+    /// </summary>
+    /// <returns>void</returns>
     public void RefreshNearbyUI()
     {
         ClearEntries();
@@ -44,7 +48,6 @@ public class InventoryNearbyUI : MonoBehaviour
 
         var list = playerInventory.nearbyCollectibles;
         
-        //independent of i
         int placedIndex = 0;
         for (int i = 0; i < list.Count; i++)
         {

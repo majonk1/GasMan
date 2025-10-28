@@ -37,6 +37,11 @@ public class DoorDropZone : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Toggles the door's active state and updates the UI visibility.
+    /// </summary>
+    /// <param name="open">True to show the door, false to hide (open it).</param>
+    /// <returns>void</returns>
     public void openTheDoorsDoor(bool open)
     {
         attachedDoor.SetActive(open);

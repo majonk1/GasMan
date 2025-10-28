@@ -19,8 +19,10 @@ public class FloorController : MonoBehaviour
     private Coroutine moveCoroutine;
 
     /// <summary>
-    /// Called externally from PlayerInventory whenever weight changes and we should re-evaluate the floor target.
+    /// Triggers a re-evaluation of the target transform based on current average weight
+    /// and (re)starts the movement coroutine so the floor moves immediately.
     /// </summary>
+    /// <returns>void</returns>
     public void RequestMoveToTarget()
     {
         UpdateTargetFromWeight(true);
@@ -101,6 +103,10 @@ public class FloorController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Serialises the floor's current state for saving.
+    /// </summary>
+    /// <returns><see cref="FloorState"/> containing current target index and world position.</returns>
     public FloorState GetFloorState()
     {
         return new FloorState
@@ -110,6 +116,12 @@ public class FloorController : MonoBehaviour
         };
     }
 
+    /// <summary>
+    /// Restores the floor's state from a saved,
+    /// updating target index/transform and teleporting to the saved position.
+    /// </summary>
+    /// <param name="state">Saved floor state to apply.</param>
+    /// <returns>void</returns>
     public void ApplyFloorState(FloorState state)
     {
         if (state == null)

@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class DropPointController : MonoBehaviour
 {
-    [Tooltip("Scene transform placed where you want drops on the left.")]
     public Transform leftDropPoint;
 
-    [Tooltip("Scene transform placed where you want drops on the right.")]
     public Transform rightDropPoint;
 
-    [Tooltip("If true, start with the left drop point active.")]
     public bool startLeft = true;
 
     public Transform ActiveDropPoint { get; private set; }
@@ -26,12 +23,12 @@ public class DropPointController : MonoBehaviour
             SetRight();
     }
 
-    public void SetLeft()
+    private void SetLeft()
     {
         ActiveDropPoint = leftDropPoint ?? transform;
     }
 
-    public void SetRight()
+    private void SetRight()
     {
         ActiveDropPoint = rightDropPoint ?? transform;
     }

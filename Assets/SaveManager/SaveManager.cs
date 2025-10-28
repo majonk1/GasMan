@@ -46,22 +46,6 @@ public class SaveManager : MonoBehaviour
         _doorSaveManager.SetDoorIDs(_doorTag);
     }
 
-    private void Update()
-    {
-        // debug shortcuts
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SaveOverwrite();
-            Debug.Log("[SaveManager] Saved overwrite snapshot (Q).");
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            RestoreSavedSnapshot();
-            Debug.Log("[SaveManager] Restored saved snapshot (E).");
-        }
-    }
-
     private Snapshot CreateSnapshot()
     {
         return new Snapshot
@@ -79,7 +63,12 @@ public class SaveManager : MonoBehaviour
         savedSnapshot = CreateSnapshot();
     }
 
-    /// Restore the saved snapshot (if any). Safe to call even if no saved snapshot exists.
+    /// <summary>
+    /// Restores the saved snapshot if one exists.
+    /// Restores collectibles, player position/inventory, floor state, and door states.
+    /// Safe to call even when no snapshot exists.
+    /// </summary>
+    /// <returns>void</returns>
     public void RestoreSavedSnapshot()
     {
         if (savedSnapshot == null)

@@ -22,6 +22,11 @@ public class Collectible : MonoBehaviour
         if (collider) collider.isTrigger = true;
     }
     
+    /// <summary>
+    /// Sets the visual color of the collectible’s mesh based on the provided color.
+    /// </summary>
+    /// <param name="colour">The color to apply to the collectible's material.</param>
+    /// <returns>void</returns>
     public void SetVisualColor(Color colour)
     {
         MeshRenderer meshRenderer = GetComponentInChildren<MeshRenderer>();

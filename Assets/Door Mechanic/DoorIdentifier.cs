@@ -16,6 +16,11 @@ public class DoorIdentifier : MonoBehaviour
         _doorDropZone = GetComponentInChildren<DoorDropZone>();
     }
 
+	/// <summary>
+    /// Sets door open.
+    /// </summary>
+    /// <param name="open">Set door to open</param>
+    /// <returns>void</returns>
     public void SetOpen(bool open)
     {
         isOpen = open;

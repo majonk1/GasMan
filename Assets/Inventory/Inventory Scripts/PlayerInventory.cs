@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Handles all player inventory logic
+/// </summary>
 public class PlayerInventory : MonoBehaviour
 {
     public FloorController floorController;
@@ -85,13 +88,19 @@ public class PlayerInventory : MonoBehaviour
             }
         }
     }
-
+    
     private void RequestFloorMove()
     {
         if (floorController != null)
             floorController.RequestMoveToTarget();
     }
 
+    /// <summary>
+    /// Adds an item with the given weight to the first empty slot.
+    /// Updates the UI and recalculates the average weight.
+    /// </summary>
+    /// <param name="weight">The weight value of the item being added.</param>
+    /// <returns>True if the item was added successfully, false if inventory is full.</returns>
     public bool AddItem(float weight)
     {
         for (int i = 0; i < slots.Length; i++)
@@ -114,6 +123,11 @@ public class PlayerInventory : MonoBehaviour
         return false; 
     }
 
+    /// <summary>
+    /// Drops an item from the given inventory slot into the game world.
+    /// </summary>
+    /// <param name="index">The index of the inventory slot to drop.</param>
+    /// <returns>void</returns>
     public void DropItem(int index)
     {
         if (index < 0 || index >= slots.Length) return;
@@ -147,6 +161,7 @@ public class PlayerInventory : MonoBehaviour
             sfx.PlayDrop();
         }
 
+		//Clear slot
         slots[index].weight = 0;
     
         RefreshWeightDisplay();
@@ -160,6 +175,7 @@ public class PlayerInventory : MonoBehaviour
 
     void RefreshUI()
     {
+		//Refresh all slots
         for (int i = 0; i < slots.Length; i++)
         {
             if (!slots[i].IsEmpty)
@@ -177,6 +193,10 @@ public class PlayerInventory : MonoBehaviour
         playerInventoryWeightText.Refresh(currentAvgWeight);
     }
 
+    /// <summary>
+    /// Gets the rounded average weight of all non-empty inventory slots.
+    /// </summary>
+    /// <returns>Rounded average weight up, as a float.</returns>
     public float currentAvgWeight
     {
         get
@@ -233,6 +253,10 @@ public class PlayerInventory : MonoBehaviour
         
     }
     
+    /// <summary>
+    /// Updates the UI text showing occupied vs total inventory slots.
+    /// </summary>
+    /// <returns>void</returns>
     public void UpdateSlotsCount()
     {
         if (slots.Length == 0)
@@ -253,6 +277,11 @@ public class PlayerInventory : MonoBehaviour
         slotsCountText.text = $"Total: {occupied}/{slots.Length}";
     }
     
+    /// <summary>
+    /// Picks up a nearby collectible by index and adds it to the inventory.
+    /// </summary>
+    /// <param name="index">The index of the collectible in the nearby list.</param>
+    /// <returns>True if added successfully; false if pickup failed.</returns>
     public bool PickupNearbyAt(int index)
     {
         if (index < 0 || index >= nearbyCollectibles.Count) return false;
@@ -288,6 +317,10 @@ public class PlayerInventory : MonoBehaviour
     }
     
     
+    /// <summary>
+    /// Builds a snapshot of the current inventory state for saving.
+    /// </summary>
+    /// <returns>PlayerStatus containing the current slot weights and average weight.</returns>
     public PlayerStatus GetPlayerStatus()
     {
         var status = new PlayerStatus
@@ -315,6 +348,11 @@ public class PlayerInventory : MonoBehaviour
         return status;
     }
     
+    /// <summary>
+    /// Applies a previously saved inventory snapshot and refreshes all dependent systems.
+    /// </summary>
+    /// <param name="status">The saved player inventory state.</param>
+    /// <returns>void</returns>
     public void ApplyPlayerStatus(PlayerStatus status)
     {
         if (status == null) return;
