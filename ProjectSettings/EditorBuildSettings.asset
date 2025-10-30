@@ -17,30 +17,24 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Tutorial.unity
     guid: 87763baffbd464841899a1c997c0435d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: cd094968096d72549a03b429c42cc2e8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Level2.unity
     guid: e5692049a6066484497f6e355d59237d
   - enabled: 1
-    path: Assets/Scenes/W11_Level1.unity
-    guid: 5c65e5d097b957e419d24675795f934e
+    path: Assets/Scenes/Level3.unity
+    guid: b6e48719d6b303b45bdf879fc7414460
   - enabled: 1
-    path: Assets/Scenes/W11_Level2.unity
-    guid: 094bb5d38752a9449bf3a17a055ebee4
+    path: Assets/Scenes/Level4.unity
+    guid: 8c36adc12056369468ec0b966da04a7c
   - enabled: 1
-    path: Assets/Scenes/W11_Level3.unity
-    guid: fe92f942057eced468dad63a258c918a
+    path: Assets/Scenes/Level5.unity
+    guid: 33974cb0fdbd827408f7d142f5556608
   - enabled: 1
-    path: Assets/Scenes/W11_Level4.unity
-    guid: 657e5c75cf2797a4f91868eb2f6e9f84
-  - enabled: 1
-    path: Assets/Scenes/W11_Level5.unity
-    guid: abf3050d120ee914d988f6d0bfe9621b
-  - enabled: 1
-    path: Assets/Scenes/W11_EndScreen.unity
-    guid: b9599317a068d7d4ca1f66a4f4e6f7f5
+    path: Assets/Scenes/Level6.unity
+    guid: 3c54ef0d477ccd94783c5aa9a2484999
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
