@@ -22,6 +22,13 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
 
     private Animator animator;
+    //tracks last frames y position
+    private float lastY;
+    //timer to stop rising and falling animations playing when spawning
+    private float vSpeedGraceTimer = 0f;
+    private const float vSpeedGraceDuration = 0.25f;
+    //tracks whther canmove changed between frames
+    private bool lastCanMove;
 
     void Awake()
     {
@@ -41,10 +48,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
         animator = GetComponentInChildren<Animator>();
+        //stores inital position for vertical speed calculation
+        lastY = transform.position.y;
+        //begins short grace period to stop rising and falling animations to play when player spawns
+        vSpeedGraceTimer = vSpeedGraceDuration;
+        //tracks intial movement state
+        lastCanMove = canMove;
     }
 
     void Update()
     {
+        //if changed from cant move to can move reapply grace period
+        if (canMove && !lastCanMove)
+        {
+            vSpeedGraceTimer = vSpeedGraceDuration;
+        }
+        lastCanMove = canMove;
+        
         //Always do grounded check so physics state remains correct.
         GroundCheck();
 
@@ -59,11 +79,52 @@ public class PlayerMovement : MonoBehaviour
 
             velocity.y += gravity * Time.deltaTime;
             cc.Move(velocity * Time.deltaTime);
-
+            
+            //calculates vertical speed m world postion change
+            float v = (transform.position.y - lastY) / Time.deltaTime;
+            lastY = transform.position.y;
+            
+            //applies grace period to stop the rising and falling animations playing at spawn
+            if (vSpeedGraceTimer > 0f)
+            {
+                vSpeedGraceTimer -= Time.deltaTime;
+                v = 0f;
+            }
+            else if (Mathf.Abs(v) < 0.05f)
+            {
+                v = 0f;
+            }
+            
+            //sends final vspeed value to the animator for the rising and falling
+            if (animator != null)
+            {
+                animator.SetFloat("vSpeed", v);
+            }
             return;
         }
 
         Move();
+        
+        //calculates vertical speed after moving the frame
+        float worldV = (transform.position.y - lastY) / Time.deltaTime;
+        lastY = transform.position.y;
+        
+        //applies the grace period 
+        if (vSpeedGraceTimer > 0f)
+        {
+            vSpeedGraceTimer -= Time.deltaTime;
+            worldV = 0f;
+        }
+        else if (Mathf.Abs(worldV) < 0.05f)
+        {
+            worldV = 0f;
+        }
+        
+        //sends it to the animator
+        if (animator != null)
+        {
+            animator.SetFloat("vSpeed", worldV);
+        }
     }
 
     void GroundCheck()
