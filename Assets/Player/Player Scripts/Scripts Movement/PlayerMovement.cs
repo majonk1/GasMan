@@ -20,7 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController cc;
     private Vector3 velocity;
     private bool isGrounded;
-
+    
+    //reference to animator component
     private Animator animator;
     //tracks last frames y position
     private float lastY;
@@ -46,7 +47,8 @@ public class PlayerMovement : MonoBehaviour
             //Position the groundCheck directly below the player, at the bottom of the CharacterController capsule.
             groundCheck.localPosition = new Vector3(0, -halfHeight, 0);
         }
-
+        
+        //gets reference to the animator in the players child object
         animator = GetComponentInChildren<Animator>();
         //stores inital position for vertical speed calculation
         lastY = transform.position.y;
@@ -146,7 +148,8 @@ public class PlayerMovement : MonoBehaviour
 
         bool leftPressed = Input.GetKey(KeyCode.A);
         bool rightPressed = Input.GetKey(KeyCode.D);
-
+        
+        //sends input states to the animator
         if (animator != null)
         {
             animator.SetBool("leftPressed", leftPressed);
@@ -173,7 +176,8 @@ public class PlayerMovement : MonoBehaviour
         // Gravity
         velocity.y += gravity * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
-
+        
+        //controls the player movement looping sound
         AudioManager.Instance?.SetMovementLoop(h != 0f);
     }
 

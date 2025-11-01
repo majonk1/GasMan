@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxSource: {fileID: 5398720781000642798}
+  movementSource: {fileID: 5398720781000642798}
   playMovementClip: {fileID: 8300000, guid: a1cf7f0b1f1994a578655fcb3f5afe77, type: 3}
+  deathClip: {fileID: 8300000, guid: 57d161ccbaf8e4cffb0da0cb04cfbbf6, type: 3}
 --- !u!82 &5398720781000642798
 AudioSource:
   m_ObjectHideFlags: 0
