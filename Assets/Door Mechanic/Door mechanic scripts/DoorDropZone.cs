@@ -10,7 +10,8 @@ public class DoorDropZone : MonoBehaviour
 
     [SerializeField] private GameObject attachedDoor;
     [SerializeField] private float equalAmountToOpenTheDoor;
-    [SerializeField] private PlayableDirector doorDirector;
+    //reference to the director controlling the timeline component
+    public PlayableDirector doorDirector;
 
     private GameObject _collectible;
 
@@ -34,13 +35,17 @@ public class DoorDropZone : MonoBehaviour
     {
         if (weightInDropZone == equalAmountToOpenTheDoor)
         {
+            //checks if the director is assigned
             if (doorDirector != null)
         {
+            //resets timeline to 0 so plays animation from begininng
             doorDirector.time = 0;
+            //plays the animation
             doorDirector.Play();
         }
-
-            Invoke(nameof(HideDoor), 2f);
+            //removes the door a second after animation finsihes did this becuase before was removing the
+            //whilst animating so added the delay so the animation plays before its removed
+            Invoke(nameof(HideDoor), 1f);
             Destroy(_collectible);
         }
     }
