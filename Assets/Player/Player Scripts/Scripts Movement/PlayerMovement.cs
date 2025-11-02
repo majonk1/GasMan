@@ -30,7 +30,10 @@ public class PlayerMovement : MonoBehaviour
     private const float vSpeedGraceDuration = 0.25f;
     //tracks whther canmove changed between frames
     private bool lastCanMove;
-
+    [Header("Particles")]
+    //reference to the particle system
+    public ParticleSystem gasParticles;
+    
     void Awake()
     {
         cc = GetComponent<CharacterController>();
@@ -179,6 +182,25 @@ public class PlayerMovement : MonoBehaviour
         
         //controls the player movement looping sound
         AudioManager.Instance?.SetMovementLoop(h != 0f);
+        
+        //plays the gas particles when the player is moving
+        if (gasParticles != null)
+        {
+            //true if moving left or right
+            bool isMoving = Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f;
+
+            if (isMoving && !gasParticles.isPlaying)
+            {
+                //emits the gas particles
+                gasParticles.Play();
+            }
+            else if (!isMoving && gasParticles.isPlaying)
+            {
+                //stops and clears the gas aprticles when player stops moving
+                gasParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+        }
+
     }
 
     public void SetWeight(float w)
