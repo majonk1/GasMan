@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class DoorDropZone : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class DoorDropZone : MonoBehaviour
 
     [SerializeField] private GameObject attachedDoor;
     [SerializeField] private float equalAmountToOpenTheDoor;
+    [SerializeField] private PlayableDirector doorDirector;
 
     private GameObject _collectible;
 
@@ -32,9 +34,20 @@ public class DoorDropZone : MonoBehaviour
     {
         if (weightInDropZone == equalAmountToOpenTheDoor)
         {
-            openTheDoorsDoor(false);
+            if (doorDirector != null)
+        {
+            doorDirector.time = 0;
+            doorDirector.Play();
+        }
+
+            Invoke(nameof(HideDoor), 2f);
             Destroy(_collectible);
         }
+    }
+
+    private void HideDoor()
+    {
+        openTheDoorsDoor(false);
     }
     
     /// <summary>

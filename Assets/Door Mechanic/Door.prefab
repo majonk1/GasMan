@@ -124,6 +124,7 @@ MonoBehaviour:
   doorText: {fileID: 3088471303470273274}
   attachedDoor: {fileID: 6188648204241312728}
   equalAmountToOpenTheDoor: 0
+  doorDirector: {fileID: 0}
 --- !u!1 &6188648204241312728
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aab44977ac0c8941a3ed22e2119d8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorId: 
+  doorId: 0
   isOpen: 0
 --- !u!1 &7928054114804756548
 GameObject:

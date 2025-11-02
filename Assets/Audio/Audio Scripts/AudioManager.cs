@@ -9,13 +9,13 @@ public class AudioManager : MonoBehaviour
     }
     
     //used for one shots
-    [SerializeField] private AudioSource sfxSource;
+    public AudioSource sfxSource;
     //used for looping sounds
-    [SerializeField] private AudioSource movementSource;
+    public AudioSource movementSource;
     //sound effect of when player is omving left or right
-    [SerializeField] private AudioClip playMovementClip;
+    public AudioClip playMovementClip;
     //sound effect for when player dies
-    [SerializeField] private AudioClip deathClip;
+    public AudioClip deathClip;
         
     //to initalise object
     void Awake()
