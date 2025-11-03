@@ -410,6 +410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8071415bb09a4454c8123bf84d0e8151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathSound: {fileID: 8300000, guid: 57d161ccbaf8e4cffb0da0cb04cfbbf6, type: 3}
+  deathVolume: 1
 --- !u!1 &6457733652054106733
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8071415bb09a4454c8123bf84d0e8151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathSound: {fileID: 0}
+  deathVolume: 1
 --- !u!1 &7195601590862378857
 GameObject:
   m_ObjectHideFlags: 0

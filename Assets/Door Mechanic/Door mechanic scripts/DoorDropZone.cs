@@ -13,6 +13,9 @@ public class DoorDropZone : MonoBehaviour
     //reference to the director controlling the timeline component
     public PlayableDirector doorDirector;
 
+    public AudioClip doorOpenSound;
+    public float doorVolume = 1f;
+    
     private GameObject _collectible;
 
     private void Start()
@@ -35,6 +38,11 @@ public class DoorDropZone : MonoBehaviour
     {
         if (weightInDropZone == equalAmountToOpenTheDoor)
         {
+            if (AudioManager.Instance != null && doorOpenSound != null)
+            {
+                AudioManager.Instance.PlayOneShot2D(doorOpenSound, doorVolume);
+            }
+            
             //checks if the director is assigned
             if (doorDirector != null)
         {

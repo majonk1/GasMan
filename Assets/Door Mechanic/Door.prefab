@@ -125,6 +125,8 @@ MonoBehaviour:
   attachedDoor: {fileID: 6188648204241312728}
   equalAmountToOpenTheDoor: 0
   doorDirector: {fileID: 0}
+  doorOpenSound: {fileID: 8300000, guid: afcc429c70567446dab3e42c649a7dbe, type: 3}
+  doorVolume: 2
 --- !u!1 &6188648204241312728
 GameObject:
   m_ObjectHideFlags: 0
